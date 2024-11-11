@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+  tqa-app-service:
+    image: usremoterecqa
+    command: node /app/index.js
+    networks:
+      - tqa
+      - proxy
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://${GRAYLOG_SERVER}"
+        tag: "${GRAYLOG_TAG}"
+        env: usremoterecqa
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 5s
+      labels:
+        - "traefik.backend=usremoterecqa"
+        - "traefik.frontend.rule=Host:${EXMPL_TRAEFIK_ADDR}"
+        - "traefik.port=8070"
+        - "traefik.docker.network=proxy"
+
+networks:
+  tqa:
+    external:
+      name: tqa
+  proxy:
+    external:
+      name: proxy
