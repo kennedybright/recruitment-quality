@@ -1,0 +1,20 @@
+curl --location 'https://externalgw.api.apps.nielsen.com/infra/authentication/users' \
+--header 'x-api-key: 1234' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "emailAddress",
+    "firstName" : "firstName",
+    "lastName": "lastName",
+    "roles": [
+        12345
+    ],
+    "tenants": {
+        "toAdd": [
+            {
+                "tenantId": 1234,
+                "isPrimary": true
+            }
+        ],
+        "toRemove": []
+    }
+}

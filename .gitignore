@@ -1,0 +1,7 @@
+.idea
+/app/node_modules
+/app/npm-debug.log
+/app/.nyc_output
+/app/coverage
+/app/build
+webinfra-example-app-backend.iml
