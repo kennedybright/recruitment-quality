@@ -8,6 +8,7 @@ module.exports = (sequelize) => {
       type: DataTypes.BIGINT, 
       primaryKey: true,
       unique: true,
+      autoIncrement: true,
       allowNull: false 
     },
     app_id: { 
@@ -58,10 +59,17 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(2), 
       allowNull: false 
     },
-    audit_tracking: { 
+    audit: { 
       type: DataTypes.BOOLEAN, 
       allowNull: false, 
-      defaultValue: true 
+      defaultValue: true
+    },
+    phone_nm: { 
+      type: DataTypes.STRING, 
+      allowNull: true
+    },
+    audit_tracking: { 
+      type: DataTypes.STRING,
     },
     introduction: { 
       type: DataTypes.SMALLINT 
@@ -229,8 +237,12 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(10), 
       allowNull: false 
     },
+    updated_by: { 
+      type: DataTypes.STRING(10) 
+    },
     audio_smp: { 
-      type: DataTypes.STRING(5) 
+      type: DataTypes.STRING(5),
+      allowNull: false
     }
   }, 
   {

@@ -16,9 +16,17 @@ module.exports = (sequelize) => {
     },
     disabled: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
       defaultValue: false
-    }
+    },
+    field_name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    call_type: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   },
   {
     sequelize,
