@@ -1,0 +1,69 @@
+{
+  "name": "panel-recruitment-quality",
+  "version": "1.1.3",
+  "description": "Backend for Call Center Quality's MAF application, supporting compliance for Audio PPM, TAM Video, and SMP",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/nielsen-media/panel-management/one-media-recruitment/panel-recruitment-quality.git"
+  },
+  "engines": {
+    "node": ">=12.0.0",
+    "yarn": ">=1.21.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test-dev": "npm run lint && cp ~/.npmrc ./.. && npm run test-in-docker && rm ./../.npmrc && docker-compose -f test/docker-compose.yml -p exmpl_be_${BUILD_NUMBER} down",
+    "test-in-docker": "docker-compose -p exmpl_be_${BUILD_NUMBER} -f test/docker-compose.yml up --force-recreate --build -d && docker exec -i exmpl_be_${BUILD_NUMBER}_web_1 npm run dbMigrate && docker exec -i exmpl_be_${BUILD_NUMBER}_web_1 npm run test",
+    "test": "npm run test:integration",
+    "start": "nodemon index",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
+    "dbMigrate": "(sequelize db:create --env development || true) && sequelize db:migrate --env development",
+    "dbMigrate:prod": "(sequelize db:create --env production || true) && sequelize db:migrate --env production",
+    "dbMigrate:add": "sequelize migration:generate --name ",
+    "test:unit": "jest --config jest.config.unit.js --verbose",
+    "test:integration": "jest --config jest.config.integration.js --runInBand --verbose"
+  },
+  "devDependencies": {
+    "jest": "^25.5.4",
+    "nodemon": "^2.0.2",
+    "sequelize-cli": "^5.5.1",
+    "standard": "^14.3.1",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "@nielsen-media/express-request-context": "^2.0.0",
+    "@nielsen-media/prom-system-metrics": "^2.0.0",
+    "@nielsen-media/web-commons-authenticationservice": "^2.0.1",
+    "body-parser": "^1.19.0",
+    "eslint": "^6.8.0",
+    "express": "^4.17.1",
+    "express-validation": "^1.0.3",
+    "express-version-request": "^1.3.0",
+    "express-version-route": "^1.1.5",
+    "express-winston": "^4.0.2",
+    "express-winston-middleware": "^0.1.0",
+    "http-status": "^1.4.2",
+    "into-stream": "^6.0.0",
+    "ip": "^1.1.5",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "md5": "^2.3.0",
+    "mime-types": "^2.1.27",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0",
+    "newrelic": "^6.3.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
+    "sequelize": "^5.21.4",
+    "winston": "^3.2.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  }
+}
