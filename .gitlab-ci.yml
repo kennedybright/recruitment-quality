@@ -12,7 +12,7 @@ include:
     ref: 4.10.1
 
 
-semantic-release:
+.semantic-release:
   stage: release
   variables:
       GITLAB_TOKEN: $GITLAB_ONE_MEDIA_RECRUITMENT
