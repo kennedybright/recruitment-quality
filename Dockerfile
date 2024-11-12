@@ -1,13 +1,14 @@
-FROM mhart/alpine-node:12.14.0
-ARG NPM_CONFIG_REGISTRY="registry.gitlab.com/nielsen-media/maf/maf-public/packages/mhart/alpine-node"
+FROM node:20.18.0
+#ARG NPM_CONFIG_REGISTRY="registry.gitlab.com/nielsen-media/maf/maf-public/packages/mhart/alpine-node"
 
 COPY ./app /app
 COPY .npmrc /app/.npmrc
 COPY app/db /db
+COPY ./deployment /deployment
 WORKDIR /app
 
-RUN apk add --no-cache make gcc g++ python bash curl
-RUN npm set registry $NPM_CONFIG_REGISTRY
+#RUN apk add --no-cache make gcc g++ python bash curl
+#RUN npm set registry $NPM_CONFIG_REGISTRY
 
 RUN npm install
 EXPOSE 8070

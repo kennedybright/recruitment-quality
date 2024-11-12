@@ -1,0 +1,4 @@
+ingress:
+  cert_arn: arn:aws:acm:us-east-1:853826018359:certificate/22074749-7c98-4760-840d-fc476f86f29b
+  host: panel-recruitment-quality.maf-c137.nielsen.com
+

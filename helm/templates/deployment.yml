@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: panel-recruitment-quality
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: panel-recruitment-quality
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: panel-recruitment-quality
+    spec:
+      containers:
+      - name: panel-recruitment-quality
+        imagePullPolicy: IfNotPresent
+        image: "{{ required "image.registry" .Values.image.registry }}:{{ required "image.tag" .Values.image.tag }}"
+        ports:
+        - name: http
+          containerPort: {{ .Values.container.port }}
+        resources:
+          requests:
+            cpu: 2
+            memory: 8Gi
+        env:
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: panel-recruitment-quality-rds
+                key: rds_host
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: panel-recruitment-quality-rds
+                key: rds_username 
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: panel-recruitment-quality-rds
+                key: rds_password 
+      imagePullSecrets:
+        - name: gitlab
+

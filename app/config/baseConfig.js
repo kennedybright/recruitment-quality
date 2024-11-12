@@ -1,5 +1,9 @@
 'use strict'
 
+var username = process.env.DB_USERNAME
+var pwd = process.env.DB_PASSWORD
+var host = process.env.DB_HOST
+
 module.exports = {
   app: {
     baseURL: 'usremoterecqa',
@@ -10,9 +14,9 @@ module.exports = {
   db: {
     pg: {
       database: 'analytics',
-      username: "sdm_ops_remoterec_restricted_rw",
-      password: "#?KmMb1~ETLi:WNMpzG#0po*",
-      host: 'media-ops-db.oa.nlsn.media',
+      username: `${username}`,
+      password: `${pwd}`,
+      host: `${host}`,
       port: '5432',
       schema: 'remote_recruitment',
       dialect: 'postgres',

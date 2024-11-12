@@ -1,74 +1,68 @@
-variables:
-  SERVICE_NAME: usremoterecqa
-  CI_REPO_BRANCH: master
-  SCRIPTS_DIR: app
-  TEST_COMMAND: test-in-docker
-  TEST_METHOD: docker-compose
-  MYSQL_CONFIGS_DIR: app/test/files/mysql_configs
-  DOCKER_COMPOSE_FOR_TESTS: app/test/docker-compose.yml
-  DEPLOYMENT_NAMESPACE: webinfra-applications
-  SHOULD_PUSH_TO_DOCKERHUB: "false"
-  APPLICATION_NAME: webinfra-example-app-backend
-  MAF_MANIFEST_PATH: deployment/manifest.json
-  MAF_DEPLOY_TOKEN: ad5f2e4a-fca9-4052-afd8-52a93429eb1c
-  NEW_SERVICE_VERSION: ""
-  INSTALL_MODULES: 'true'
-  GITLAB_REGISTRY_DEPLOY: 'true'
-  USE_GITLAB_PACKAGE_REGISTRY: 'true'
-
-  ##================== ***  sreDeploy *** ================##
-
-  IMAGE: registry.gitlab.com/nielsen-media/maf/maf-public/packages/webinfra-example-app-backend
-  LISTEN_PORT: "8070"
-  LISTEN_PORT_NAME: "http"
-  HEALTH_PATH: "/usremoterecqa/service/health"
-
-  ##================== *** END sreDeploy END *** ================##
-
-  ENV:
-    value: "npd"
-    description: "The deployment target. Change this variable to 'prod' if needed."
-
-  NEW_SERVICE_VERSION:
-    value: "latest"
-    description: "The deployment version."
-
+stages:
+ - release
+ - build
+ - deploy
 
 include:
-  - project: "nielsen-media/identity/cloudops/continuous-integration"
-    ref: master
-    file:
-      - "/Jobs/maf/initPipeline.yml"
-      - "/Jobs/maf/bumpVersion.yml"
-      - "/Jobs/maf/buildImage.yml"
-      - "/Jobs/maf/preBuildTests.yml"
-      - "/Jobs/maf/platformSreDeploy.yml"
-      - '/Jobs/maf/deployManifest.yml'
-      - '/Jobs/maf/npmPublish.yml'
-      -  '/Jobs/maf/restart.yml'
-    rules:
-      - if: '$ENV != "prod"'
-
-  - project: 'nielsen-media/identity/cloudops/continuous-integration'
-    ref: master
-    file:
-      - '/Jobs/maf/initPipeline.yml'
-      - '/Jobs/maf/platformSreDeploy.yml'
-      - '/Jobs/maf/deployManifest.yml'
-      -  '/Jobs/maf/restart.yml'
-    rules:
-      - if: '$CI_COMMIT_BRANCH == "master" && $ENV == "prod"'
+  # - project: 'nielsen-media/me/planning/infra/gitlab-ci-tools'
+  #   file: 'gitlab-templates/semantic/template.yml'
+  #   ref: 4.10.1
+  - project: 'nielsen-media/me/planning/infra/gitlab-ci-tools'
+    file: '/gitlab-templates/ecr/template.yml'
+    ref: 4.10.1
 
 
-stages:
-  - mafInit
-  - mafPreBuildTest
-  - mafBumpVersion
-  - mafNpmPublish
-  - mafBuild
-  - sreDeploy
-  - mafDeploymentManifest
-  - restart
-  - sreCleanup
+semantic-release:
+  stage: release
+  variables:
+      GITLAB_TOKEN: $GITLAB_ONE_MEDIA_RECRUITMENT
 
+build:
+  stage: build
+  extends: .release-image
+  only:
+    - tags
+
+.deploy:
+  stage: deploy
+  image: 307422823171.dkr.ecr.eu-west-1.amazonaws.com/devops/helmfile:1.1.2
+  variables:
+    NAMESPACE: panel-recruitment
+  script:
+    - kubectl config get-contexts
+    - kubectl config use-context nielsen-media/platforms/tools-devops-external/runners-as-a-service/runner-panel-recruitment:$KAAS_AGENT
+    - kubectl get po -n $NAMESPACE
+    - >
+      kubectl create secret docker-registry gitlab
+        --docker-server=registry.gitlab.com
+        --docker-username=GITLAB_REGISTREY_PULL
+        --docker-password=$GITLAB_REGISTREY_PULL_PWD 
+        --dry-run=client -o yaml
+        -n $NAMESPACE | kubectl apply -f -
+
+    - >
+      helm upgrade panel-recruitment-quality helm/ --install -n $NAMESPACE -f $VALUES_FILE
+      --set rds.host=$DB_HOST
+      --set rds.username=$DB_USERNAME
+      --set rds.password=$DB_PASSWORD
+      --set image.tag=$CI_COMMIT_TAG
+
+deploy-np:
+  extends: .deploy
+  variables:
+    DB_HOST: $DB_HOST_NP 
+    DB_PASSWORD: $DB_PASSWORD_NP
+    DB_USERNAME: $DB_USERNAME_NP
+    VALUES_FILE: values/np.yaml
+    KAAS_AGENT: mptdevops-nonprod-us-east-1-kaas-blue
+  only:
+    - tags
+
+
+
+.deploy-prod:
+  extends: .deploy
+  variables:
+    VALUES_FILE: values/prod.yaml
+    KAAS_AGENT: mptdevops-prod-us-east-1-kaas-blue
 
