@@ -1,6 +1,6 @@
 image:
   registry: registry.gitlab.com/nielsen-media/panel-management/one-media-recruitment/panel-recruitment-quality
-  tag: 213b8e54
+  tag: 
 
 container:
   port: 8070

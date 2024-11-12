@@ -34,18 +34,17 @@ build:
     - kubectl get po -n $NAMESPACE
     - >
       kubectl create secret docker-registry gitlab
-        --docker-server=registry.gitlab.com
-        --docker-username=GITLAB_REGISTREY_PULL
-        --docker-password=$GITLAB_REGISTREY_PULL_PWD 
-        --dry-run=client -o yaml
-        -n $NAMESPACE | kubectl apply -f -
+      --docker-server=registry.gitlab.com
+      --docker-username=GITLAB_REGISTREY_PULL
+      --docker-password=$GITLAB_REGISTREY_PULL_PWD 
+      --dry-run=client -o yaml
+      -n $NAMESPACE | kubectl apply -f -
 
     - >
       helm upgrade panel-recruitment-quality helm/ --install -n $NAMESPACE -f $VALUES_FILE
       --set rds.host=$DB_HOST
       --set rds.username=$DB_USERNAME
       --set rds.password=$DB_PASSWORD
-      --set image.tag=$CI_COMMIT_TAG
 
 deploy-np:
   extends: .deploy
@@ -57,6 +56,7 @@ deploy-np:
     KAAS_AGENT: mptdevops-nonprod-us-east-1-kaas-blue
   only:
     - tags
+    - main
 
 
 
