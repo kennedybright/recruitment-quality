@@ -9,8 +9,8 @@ module.exports = {
     baseURL: 'usremoterecqa',
     appToken: '6b128c4d-0e93-40bd-8461-3fdf8cd0f9d2'
   },
-  browserGateway: 'tqa.dev.apps.nielsen.com',
-  appGateway: 'appgw.api.dev.apps.nielsen.com',
+  //browserGateway: 'tqa.dev.apps.nielsen.com',
+  //appGateway: 'appgw.api.dev.apps.nielsen.com',
   db: {
     pg: {
       database: 'analytics',

@@ -37,8 +37,6 @@ try {
       try {
         const seqModelPath = path.resolve(seqModelFile)
         require(seqModelPath)(orm.pgInstance)
-        // const filePath = seqModelFile.split('/')
-        // orm.models[filePath[filePath.length - 1].replace('.model.sequelize.js', '')] = model
       } catch (error) {
         Logger.error(`Failed to load PostgreSQL model at ${seqModelFile}: `, error)
       }
@@ -49,8 +47,7 @@ try {
         orm.pgInstance.models[modelName].associate(orm.pgInstance.models)
       }
     })
-
-    // orm.pgInstance.sync()
+    
     console.log('Sequelize models:', orm)
   }
 } catch (e) {

@@ -3,16 +3,16 @@ const DB_CONFIG = require('../config/baseConfig').db
 console.log('DB_CONFIG: ', DB_CONFIG.pg)
 
 const maxTryToConnect = 20
-const testConnection = async (normalizedRemoteInfraConf) => {
+const testConnection = async (remoteConf) => {
   let tryNumber = 0
   console.log('Checking connection to PostgreSQL db before start migration process')
   while (tryNumber < maxTryToConnect) {
     try {
       const connection = Pool({
-        host: normalizedRemoteInfraConf.host,
-        user: normalizedRemoteInfraConf.username,
-        password: normalizedRemoteInfraConf.password,
-        port: normalizedRemoteInfraConf.port
+        host: remoteConf.host,
+        user: remoteConf.username,
+        password: remoteConf.password,
+        port: remoteConf.port
       })
 
       await connection.connect()

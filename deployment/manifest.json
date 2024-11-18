@@ -3,7 +3,7 @@
       {
         "name": "Audio & SMP QA Form",
         "description": "Audio & SMP QA Monitoring Form",
-        "display_code": "qa-form-audio-smp",
+        "display_code": "qaforms-audio-smp",
         "dependency_rest_actions": []
       },
       {
