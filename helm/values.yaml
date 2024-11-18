@@ -5,7 +5,7 @@ image:
 replicas: 2
 
 healthcheck:
-  path: /usremoterecqa/service/health
+  path: /usremoterecqa/service/health_asd
 
 container:
   port: 8070
