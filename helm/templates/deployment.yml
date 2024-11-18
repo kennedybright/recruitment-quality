@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: panel-recruitment-quality
+  name: panel-recruitment-quality
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       app.kubernetes.io/name: panel-recruitment-quality
@@ -21,8 +21,8 @@ spec:
           containerPort: {{ .Values.container.port }}
         resources:
           requests:
-            cpu: 2
-            memory: 8Gi
+            cpu: 200m
+            memory: 1Gi
         env:
           - name: DB_HOST
             valueFrom:
@@ -39,6 +39,17 @@ spec:
               secretKeyRef:
                 name: panel-recruitment-quality-rds
                 key: rds_password 
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.healthcheck.path }}
+            port: {{ .Values.container.port }}
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.healthcheck.path }}
+            port: {{ .Values.container.port }}
+          initialDelaySeconds: 15
+          periodSeconds: 10
       imagePullSecrets:
         - name: gitlab
-
