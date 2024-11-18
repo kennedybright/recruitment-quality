@@ -21,8 +21,8 @@ spec:
           containerPort: {{ .Values.container.port }}
         resources:
           requests:
-            cpu: 2
-            memory: 8Gi
+            cpu: 200m
+            memory: 1Gi
         env:
           - name: DB_HOST
             valueFrom:
