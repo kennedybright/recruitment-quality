@@ -54,6 +54,10 @@ build:
       --set rds.host=$DB_HOST
       --set rds.username=$DB_USERNAME
       --set rds.password=$DB_PASSWORD
+  only:
+    - main
+  tags:
+    - tqa-rec
 
 deploy-np:
   extends: .deploy
@@ -63,17 +67,14 @@ deploy-np:
     DB_USERNAME: $DB_USERNAME_NP
     VALUES_FILE: values/np.yaml
     KAAS_AGENT: mptdevops-nonprod-us-east-1-kaas-blue
-  only:
-    - tags
-    - main
-  tags:
-    - tqa-rec
-
 
 
 .deploy-prod:
   extends: .deploy
   variables:
+    DB_HOST: $DB_HOST_NP 
+    DB_PASSWORD: $DB_PASSWORD_NP
+    DB_USERNAME: $DB_USERNAME_NP
     VALUES_FILE: values/prod.yaml
     KAAS_AGENT: mptdevops-prod-us-east-1-kaas-blue
 
