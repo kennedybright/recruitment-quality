@@ -2,6 +2,11 @@ image:
   registry: registry.gitlab.com/nielsen-media/panel-management/one-media-recruitment/panel-recruitment-quality
   tag: 
 
+replicas: 2
+
+healthcheck:
+  path: usremoterecqa/service/health
+
 container:
   port: 8070
 

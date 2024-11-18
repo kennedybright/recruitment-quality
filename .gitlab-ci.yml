@@ -25,6 +25,13 @@ build:
   tags:
     - tqa-rec
 
+cleanup:
+  stage: deploy
+  image: 307422823171.dkr.ecr.eu-west-1.amazonaws.com/devops/helmfile:1.1.2
+  script:
+    - kubectl config use-context nielsen-media/platforms/tools-devops-external/runners-as-a-service/runner-panel-recruitment:mptdevops-nonprod-us-east-1-kaas-blue
+    - helm del panel-recruitment-quality -n panel-recruitment
+  when: manual
 
 .deploy:
   stage: deploy
