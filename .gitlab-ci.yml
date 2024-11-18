@@ -25,7 +25,8 @@ build:
   tags:
     - tqa-rec
 
-cleanup:
+#example how to unistall a helm release
+.cleanup:
   stage: deploy
   image: 307422823171.dkr.ecr.eu-west-1.amazonaws.com/devops/helmfile:1.1.2
   script:
@@ -39,9 +40,7 @@ cleanup:
   variables:
     NAMESPACE: tqa-panel-recruitment-quality
   script:
-    - kubectl config get-contexts
     - kubectl config use-context nielsen-media/platforms/tools-devops-external/runners-as-a-service/runner-tqa-panel-recruitment-quality:$KAAS_AGENT
-    - kubectl get po -n $NAMESPACE
     - >
       kubectl create secret docker-registry gitlab
       --docker-server=registry.gitlab.com
