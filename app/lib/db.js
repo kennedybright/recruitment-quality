@@ -47,7 +47,7 @@ try {
       }
     })
     
-    console.log("Config variables: ", config.db.pg)
+    console.log("Config variables: ", config)
     console.log('Sequelize models: ', orm.pgInstance)
   }
 } catch (e) {
