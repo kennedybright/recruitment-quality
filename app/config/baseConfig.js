@@ -3,6 +3,7 @@
 var username = process.env.DB_USERNAME
 var pwd = process.env.DB_PASSWORD
 var host = process.env.DB_HOST
+console.log("Host: ", host)
 var appToken = process.env.APP_TOKEN
 var appGateway = process.env.APP_GATEWAY_PATH
 var client_id = process.env.GOOGLE_CLIENT_ID
