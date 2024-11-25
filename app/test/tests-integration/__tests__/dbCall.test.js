@@ -50,7 +50,8 @@ test('dbCall: creating/updating/getting a value', async () => {
   expect(deleteResult.statusCode).toBe(200)
 
   const getAppResult = await request(app)
-    .get(`/usremoterecqa/apps/1001`)
+    .get(`/usremoterecqa/forms/fields`)
+    .send({app_id: 1001})
   expect(getAppResult.statusCode).toBe(200)
   console.log(JSON.parse(getAppResult.text))
 
