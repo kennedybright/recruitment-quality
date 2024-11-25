@@ -51,7 +51,6 @@ cleanup:
       --docker-password=$GITLAB_REGISTREY_PULL_PWD 
       --dry-run=client -o yaml
       -n $NAMESPACE | kubectl apply -f -
-    - echo "$VALUES_FILE"
     - >
       helm upgrade panel-recruitment-quality helm/ --install -n $NAMESPACE -f $VALUES_FILE
       --set rds.appToken=$APP_TOKEN   
@@ -64,8 +63,7 @@ cleanup:
       --set rds.googleRedirectUri=$REDIRECT_URI
       --set rds.gmailAccessToken=$GMAIL_ACCESS_TOKEN
       --set rds.gmailRefreshToken=$GMAIL_REFRESH_TOKEN
-  after_script:
-    - kubectl describe deployment panel-recruitment-quality
+    - kubectl describe deployment
   only:
     - main
   tags:

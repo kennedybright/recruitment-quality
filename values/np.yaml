@@ -3,4 +3,25 @@ ingress:
   host: panel-recruitment-quality.sre-np.nielsen.com
 
 image:
+  registry: registry.gitlab.com/nielsen-media/panel-management/one-media-recruitment/panel-recruitment-quality
   tag: 1.2.4
+
+replicas: 2
+
+healthcheck:
+  path: /usremoterecqa/service/health
+
+container:
+  port: 8070
+
+rds:
+  appToken:
+  appGateway:
+  host:
+  username:
+  password:
+  googleClientID:  
+  googleClientSecret:
+  googleRedirectUri:
+  gmailAccessToken:
+  gmailRefreshToken:
