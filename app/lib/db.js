@@ -8,7 +8,6 @@ const Logger = require('./logger').loggerFactory()
 const orm = {}
 
 function createSequelize (DBConfig) {
-  console.log('DBConfig: ', DBConfig)
   return new Sequelize(DBConfig.database, DBConfig.username, DBConfig.password, {
     dialect: 'postgres',
     host: DBConfig.host,
@@ -48,7 +47,7 @@ try {
       }
     })
     
-    console.log('Sequelize models:', orm)
+    console.log('Sequelize models:', orm.pgInstance.models)
   }
 } catch (e) {
   Logger.error(e.message)

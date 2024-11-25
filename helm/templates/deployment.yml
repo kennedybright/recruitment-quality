@@ -15,7 +15,7 @@ spec:
       containers:
       - name: panel-recruitment-quality
         imagePullPolicy: IfNotPresent
-        image: "{{ required "image.registry" .Values.image.registry }}:{{ required "image.tag" .Values.image.tag }}"
+        image: "{{ required 'image.registry' .Values.image.registry }}:{{ required 'image.tag' .Values.image.tag }}"
         ports:
         - name: http
           containerPort: {{ .Values.container.port }}
@@ -24,6 +24,16 @@ spec:
             cpu: 200m
             memory: 1Gi
         env:
+          - name: APP_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: panel-recruitment-quality-rds
+                key: rds_app_token
+          - name: APP_GATEWAY_PATH
+            valueFrom:
+              secretKeyRef:
+                name: panel-recruitment-quality-rds
+                key: rds_app_gateway
           - name: DB_HOST
             valueFrom:
               secretKeyRef:
@@ -39,6 +49,31 @@ spec:
               secretKeyRef:
                 name: panel-recruitment-quality-rds
                 key: rds_password 
+          - name: GOOGLE_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: panel-recruitment-quality-rds
+                key: rds_google_client_id
+          - name: GOOGLE_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: panel-recruitment-quality-rds
+                key: rds_google_client_secret
+          - name: GOOGLE_REDIRECT_URI
+            valueFrom:
+              secretKeyRef:
+                name: panel-recruitment-quality-rds
+                key: rds_google_redirect_uri
+          - name: GMAIL_ACCESS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: panel-recruitment-quality-rds
+                key: rds_gmail_access_token
+          - name: GMAIL_REFRESH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: panel-recruitment-quality-rds
+                key: rds_gmail_refresh_token
         readinessProbe:
           httpGet:
             path: {{ .Values.healthcheck.path }}

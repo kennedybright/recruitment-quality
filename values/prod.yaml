@@ -1,0 +1,6 @@
+ingress:
+  cert_arn: arn:aws:acm:us-east-1:753119227612:certificate/4f4780e6-4c03-4355-aaba-b1030bfdeb4e
+  host: panel-recruitment-quality.sre.nielsen.com
+
+image:
+  tag: 1.0.1

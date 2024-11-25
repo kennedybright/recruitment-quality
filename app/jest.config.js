@@ -1,5 +1,6 @@
 module.exports = {
+  "testEnvironment": "node",
   collectCoverage: true,
   coverageDirectory: './coverage',
-  detectOpenHandles: true,
+  testTimeout:10000
 }

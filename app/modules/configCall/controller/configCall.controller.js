@@ -1,16 +1,18 @@
 'use strict'
 
-const axios = require('axios')
+const RP = require('request-promise')
 const HttpStatus = require('http-status')
 const config = require('../../../config')
 
 module.exports.getConfig = async (req, res) => {
-  const url = `http://${config.appGateway}/infra/configuration/usremoterecqa/?recurse=true`
   const options = {
+    url: `http://${config.appGateway}/infra/configuration/usremoterecqa/?recurse=true`,
+    method: 'GET',
     headers: {
       'X-auth-token': config.app.appToken
     },
+    json: true
   }
-  const serverConfig = await axios.get(url, options)
-    res.status(HttpStatus.OK).json(serverConfig.data)
+  const serverConfig = await RP(options)
+  res.status(HttpStatus.OK).json(serverConfig)
 }

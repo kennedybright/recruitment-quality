@@ -27,6 +27,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    audio_smp: {
+      type: DataTypes.STRING
+    },
   },
   {
     sequelize,

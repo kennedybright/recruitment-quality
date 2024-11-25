@@ -15,6 +15,14 @@ ingress:
   host: 
 
 rds:
+  appToken:
+  appGateway:
   host:
   username:
   password:
+  googleClientID:  
+  googleClientSecret:
+  googleRedirectUri:
+  gmailAccessToken:
+  gmailRefreshToken:
+  

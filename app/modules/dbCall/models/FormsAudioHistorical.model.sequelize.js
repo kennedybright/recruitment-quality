@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
       type: DataTypes.TIME, 
       allowNull: false 
     },
-    ri_shift_id: { 
+    ri_shift: { 
       type: DataTypes.STRING(2), 
       allowNull: false 
     },

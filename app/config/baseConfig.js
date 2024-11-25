@@ -3,14 +3,20 @@
 var username = process.env.DB_USERNAME
 var pwd = process.env.DB_PASSWORD
 var host = process.env.DB_HOST
+var appToken = process.env.APP_TOKEN
+var appGateway = process.env.APP_GATEWAY_PATH
+var client_id = process.env.GOOGLE_CLIENT_ID
+var client_secret = process.env.GOOGLE_CLIENT_SECRET
+var redirect_uri = process.env.GOOGLE_REDIRECT_URI
+var access_token = process.env.GMAIL_ACCESS_TOKEN
+var refresh_token = process.env.GMAIL_REFRESH_TOKEN
 
 module.exports = {
   app: {
     baseURL: 'usremoterecqa',
-    appToken: '6b128c4d-0e93-40bd-8461-3fdf8cd0f9d2'
+    appToken: `${appToken}`
   },
-  //browserGateway: 'tqa.dev.apps.nielsen.com',
-  //appGateway: 'appgw.api.dev.apps.nielsen.com',
+  appGateway: `${appGateway}`,
   db: {
     pg: {
       database: 'analytics',
@@ -30,5 +36,12 @@ module.exports = {
         idle: 30000
       }
     }
-  }
+  },
+  google: {
+    clientID: `${client_id}`,
+    clientSecret: `${client_secret}`,
+    redirectUri: `${redirect_uri}`,
+    accessToken: `${access_token}`,
+    refreshToken: `${refresh_token}`
+  },
 }

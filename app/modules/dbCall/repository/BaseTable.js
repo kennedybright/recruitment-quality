@@ -28,6 +28,19 @@ module.exports = class BaseRepository {
   }
 
   /**
+   * Bulk Create new records in the database
+   * @param {Object} data - Data to insert
+   * @returns {Promise<Object>} - Created records
+   */
+  async bulkCreate(data) {
+    try {
+      return await this.model.bulkCreate(data, {validate: true})
+    } catch (error) {
+      throw new Error(`Error bulk creating records: ${error}`)
+    }
+  }
+
+  /**
    * Find a record by its primary key
    * @param {string|number} id - Primary key value
    * @returns {Promise<Object|null>} - Found record or null
@@ -102,5 +115,4 @@ module.exports = class BaseRepository {
       throw new Error(`Error checking existence of record with ID [${id}]: ${error.message}`)
     }
   }
-
 }

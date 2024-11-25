@@ -2,7 +2,7 @@
 const { Model, DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-  class QaApps extends Model {} 
+  class QaApps extends Model {}
   QaApps.init({
     app_id: {
       type: DataTypes.INTEGER,

@@ -5,7 +5,7 @@ const logger = require('../../../lib/logger').loggerFactory()
 const orm = require('../../../lib/db').pgInstance.models
 const BaseRepository = require('../repository/BaseTable')
 
-module.exports = class dbCallController {
+module.exports = class DBCallController {
   constructor(modelName) {
     this.model = orm[modelName]
     this.modelname = modelName
@@ -19,8 +19,13 @@ module.exports = class dbCallController {
   createRecord = async(req, res) => {
     try {
       const data = req.body
-      const dbValue = await this.repo.create(data)
-      res.status(HttpStatus.OK).json(dbValue)
+      if (!Array.isArray(data)) {
+        const dbValue = await this.repo.create(data)
+        res.status(HttpStatus.OK).json(dbValue)
+      } else {
+        const dbValues = await this.repo.bulkCreate(data)
+        res.status(HttpStatus.OK).json(dbValues)
+      }
     } catch (e) {
       logger.error(e)
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })

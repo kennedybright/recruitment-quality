@@ -12,7 +12,6 @@ const envPublicKey = process.env.PUBLIC_KEY
  * @constant {String}
  */
 const publicKey = envPublicKey || fs.readFileSync(path.join(__dirname, '/key.pub')).toString().trim()
-console.log('publicKey: ', publicKey)
 
 /**
  * @exports Middleware/Verification @function

@@ -2,23 +2,23 @@
 const { Model, DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-  class RecFrameCodes extends Model {} 
+  class RecFrameCodes extends Model {}
   RecFrameCodes.init({
-    frame_code_id: { 
-      type: DataTypes.STRING(10), 
-      primaryKey: true, 
-      allowNull: false 
+    frame_code_id: {
+      type: DataTypes.STRING(10),
+      primaryKey: true,
+      allowNull: false
     },
-    frame_code: { 
-      type: DataTypes.STRING(255), 
-      allowNull: false 
+    frame_code: {
+      type: DataTypes.STRING(255),
+      allowNull: false
     },
-    active: { 
-      type: DataTypes.BOOLEAN, 
-      defaultValue: true, 
-      allowNull: false 
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false
     }
-  }, 
+  },
   {
     sequelize,
     modelName: 'RecFrameCodes',

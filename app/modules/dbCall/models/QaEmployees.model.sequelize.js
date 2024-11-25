@@ -22,6 +22,9 @@ module.exports = (sequelize) => {
     email_address: {
       type: DataTypes.STRING(2048)
     },
+    title: {
+      type: DataTypes.STRING(2048)
+    },
     bilingual: {
       type: DataTypes.BOOLEAN,
       allowNull: false

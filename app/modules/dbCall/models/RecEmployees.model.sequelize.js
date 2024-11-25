@@ -48,7 +48,7 @@ module.exports = (sequelize) => {
     shiftId: { 
       type: DataTypes.STRING(2) 
     }
-  }, 
+  },
   {
     sequelize,
     modelName: 'RecEmployees',

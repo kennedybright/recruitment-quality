@@ -1,6 +1,6 @@
 'use strict'
 
-const axios = require('axios')
+const RP = require('request-promise')
 const HttpStatus = require('http-status')
 const config = require('../../../config')
 
@@ -21,16 +21,16 @@ module.exports.notify = async (req, res) => {
       deliveryType: 'BROWSER'
     }
 
-    const url = `http://${config.appGateway}/infra/communication/send`
     const options = {
+      url: `http://${config.appGateway}/infra/communication/send`,
+      method: 'POST',
       headers: {
         authorization: req.headers.authorization
       },
       body,
+      json: true
     }
-
-    const response = await axios.post(url, options)
-    res.status(HttpStatus.OK).json(response.data)
+    RP(options)
     res.sendStatus(HttpStatus.OK)
   } catch (e) {
     console.log(e.stack)

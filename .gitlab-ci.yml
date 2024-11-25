@@ -11,7 +11,6 @@ include:
     file: '/gitlab-templates/ecr/template.yml'
     ref: 4.10.1
 
-
 .semantic-release:
   stage: release
   variables:
@@ -20,6 +19,10 @@ include:
 build:
   stage: build
   extends: .release-image
+  before_script:
+    - sed -i "s/\{NPM_AUTH_TOKEN}/$NPM_AUTH_TOKEN/" .npmrc
+  after_script:
+    - sed -i "s/\$NPM_AUTH_TOKEN/{NPM_AUTH_TOKEN}/" .npmrc
   only:
     - tags
   tags:
@@ -51,9 +54,16 @@ build:
 
     - >
       helm upgrade panel-recruitment-quality helm/ --install -n $NAMESPACE -f $VALUES_FILE
+      --set rds.appToken=$APP_TOKEN   
+      --set rds.appGateway=$APP_GATEWAY_PATH
       --set rds.host=$DB_HOST
       --set rds.username=$DB_USERNAME
       --set rds.password=$DB_PASSWORD
+      --set rds.googleClientID=$CLIENT_ID   
+      --set rds.googleClientSecret=$CLIENT_SECRET
+      --set rds.googleRedirectUri=$REDIRECT_URI
+      --set rds.gmailAccessToken=$GMAIL_ACCESS_TOKEN
+      --set rds.gmailRefreshToken=$GMAIL_REFRESH_TOKEN
   only:
     - main
   tags:
@@ -62,19 +72,31 @@ build:
 deploy-np:
   extends: .deploy
   variables:
-    DB_HOST: $DB_HOST_NP 
-    DB_PASSWORD: $DB_PASSWORD_NP
-    DB_USERNAME: $DB_USERNAME_NP
+    APP_TOKEN: $APP_TOKEN
+    APP_GATEWAY_PATH: $APP_GATEWAY_PATH_NP
+    DB_HOST: $DB_HOST
+    DB_PASSWORD: $DB_PASSWORD
+    DB_USERNAME: $DB_USERNAME
+    CLIENT_ID: $CLIENT_ID
+    CLIENT_SECRET: $CLIENT_SECRET
+    REDIRECT_URI: $REDIRECT_URI_NP
+    GMAIL_ACCESS_TOKEN: $GMAIL_ACCESS_TOKEN
+    GMAIL_REFRESH_TOKEN: $GMAIL_REFRESH_TOKEN
     VALUES_FILE: values/np.yaml
     KAAS_AGENT: mptdevops-nonprod-us-east-1-kaas-blue
-
 
 .deploy-prod:
   extends: .deploy
   variables:
-    DB_HOST: $DB_HOST_NP 
-    DB_PASSWORD: $DB_PASSWORD_NP
-    DB_USERNAME: $DB_USERNAME_NP
+    APP_TOKEN: $APP_TOKEN
+    APP_GATEWAY_PATH: $APP_GATEWAY_PATH_P
+    DB_HOST: $DB_HOST
+    DB_PASSWORD: $DB_PASSWORD
+    DB_USERNAME: $DB_USERNAME
+    CLIENT_ID: $CLIENT_ID
+    CLIENT_SECRET: $CLIENT_SECRET
+    REDIRECT_URI: $REDIRECT_URI_P
+    GMAIL_ACCESS_TOKEN: $GMAIL_ACCESS_TOKEN
+    GMAIL_REFRESH_TOKEN: $GMAIL_REFRESH_TOKEN
     VALUES_FILE: values/prod.yaml
     KAAS_AGENT: mptdevops-prod-us-east-1-kaas-blue
-
