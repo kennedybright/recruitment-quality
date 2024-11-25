@@ -14,14 +14,14 @@ healthcheck:
 container:
   port: 8070
 
-rds:
-  appToken:
-  appGateway:
-  host:
-  username:
-  password:
-  googleClientID:  
-  googleClientSecret:
-  googleRedirectUri:
-  gmailAccessToken:
-  gmailRefreshToken:
+env:
+  APP_TOKEN:
+  APP_GATEWAY_PATH:
+  DB_HOST:
+  DB_PASSWORD:
+  DB_USERNAME:
+  GOOGLE_CLIENT_ID:
+  GOOGLE_CLIENT_SECRET:
+  GOOGLE_REDIRECT_URI:
+  GMAIL_ACCESS_TOKEN:
+  GMAIL_REFRESH_TOKEN:

@@ -58,7 +58,7 @@ try {
       }
     })
     
-    console.log("Config variables: ", username, host, pwd, process.rds.appGateway)
+    console.log("Config variables: ", username, host, pwd)
     console.log('Sequelize models: ', orm.pgInstance)
   }
 } catch (e) {
