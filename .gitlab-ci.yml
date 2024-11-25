@@ -85,7 +85,7 @@ deploy-np:
     VALUES_FILE: values/np.yaml
     KAAS_AGENT: mptdevops-nonprod-us-east-1-kaas-blue
 
-deploy-prod:
+.deploy-prod:
   extends: .deploy
   variables:
     APP_TOKEN: $APP_TOKEN
