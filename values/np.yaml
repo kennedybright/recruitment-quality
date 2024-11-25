@@ -4,3 +4,15 @@ ingress:
 
 image:
   tag: 1.2.4
+
+rds:
+  appToken:
+  appGateway:
+  host:
+  username:
+  password:
+  googleClientID:  
+  googleClientSecret:
+  googleRedirectUri:
+  gmailAccessToken:
+  gmailRefreshToken:

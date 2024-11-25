@@ -64,6 +64,7 @@ cleanup:
       --set rds.googleRedirectUri=$REDIRECT_URI
       --set rds.gmailAccessToken=$GMAIL_ACCESS_TOKEN
       --set rds.gmailRefreshToken=$GMAIL_REFRESH_TOKEN
+    - echo "$APP_TOKEN, $DB_HOST, $CLIENT_ID" 
   only:
     - main
   tags:
