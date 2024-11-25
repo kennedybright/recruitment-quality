@@ -47,7 +47,8 @@ try {
       }
     })
     
-    console.log('Sequelize models:', orm.pgInstance.models)
+    console.log("Config variables: ", config.db.pg)
+    console.log('Sequelize models: ', orm.pgInstance)
   }
 } catch (e) {
   Logger.error(e.message)

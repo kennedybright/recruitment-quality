@@ -1,6 +1,5 @@
 const { Pool } = require('pg')
 const DB_CONFIG = require('../config/baseConfig').db
-console.log('DB_CONFIG: ', DB_CONFIG.pg)
 
 const maxTryToConnect = 20
 const testConnection = async (remoteConf) => {
