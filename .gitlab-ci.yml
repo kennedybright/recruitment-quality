@@ -29,7 +29,7 @@ build:
     - tqa-rec
 
 #example how to unistall a helm release
-.cleanup:
+cleanup:
   stage: deploy
   image: 307422823171.dkr.ecr.eu-west-1.amazonaws.com/devops/helmfile:1.1.2
   script:
@@ -64,9 +64,6 @@ build:
       --set rds.googleRedirectUri=$REDIRECT_URI
       --set rds.gmailAccessToken=$GMAIL_ACCESS_TOKEN
       --set rds.gmailRefreshToken=$GMAIL_REFRESH_TOKEN
-    - echo "$MAF_APP_TOKEN"
-    - echo "$PG_HOST, $PG_USERNAME, $PG_PASSWORD"
-    - echo "$CLIENT_ID, $CLIENT_SECRET, $REDIRECT_URI"
   only:
     - main
   tags:
