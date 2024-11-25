@@ -7,17 +7,6 @@ const Logger = require('./logger').loggerFactory()
 
 const orm = {}
 
-var username = process.env.DB_USERNAME
-var pwd = process.env.DB_PASSWORD
-var host = process.env.DB_HOST
-var appToken = process.env.APP_TOKEN
-var appGateway = process.env.APP_GATEWAY_PATH
-var client_id = process.env.GOOGLE_CLIENT_ID
-var client_secret = process.env.GOOGLE_CLIENT_SECRET
-var redirect_uri = process.env.GOOGLE_REDIRECT_URI
-var access_token = process.env.GMAIL_ACCESS_TOKEN
-var refresh_token = process.env.GMAIL_REFRESH_TOKEN
-
 function createSequelize (DBConfig) {
   return new Sequelize(DBConfig.database, DBConfig.username, DBConfig.password, {
     dialect: 'postgres',
@@ -58,7 +47,6 @@ try {
       }
     })
     
-    console.log("Config variables: ", username, host, pwd)
     console.log('Sequelize models: ', orm.pgInstance)
   }
 } catch (e) {
