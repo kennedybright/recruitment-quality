@@ -15,7 +15,7 @@ spec:
       containers:
       - name: panel-recruitment-quality
         imagePullPolicy: IfNotPresent
-        image: "{{ required 'image.registry' .Values.image.registry }}:{{ required 'image.tag' .Values.image.tag }}"
+        image: "{{ required "image.registry" .Values.image.registry }}:{{ required "image.tag" .Values.image.tag }}"
         ports:
         - name: http
           containerPort: {{ .Values.container.port }}
