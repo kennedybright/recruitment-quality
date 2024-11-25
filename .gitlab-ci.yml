@@ -64,8 +64,8 @@ build:
       --set rds.googleRedirectUri=$REDIRECT_URI
       --set rds.gmailAccessToken=$GMAIL_ACCESS_TOKEN
       --set rds.gmailRefreshToken=$GMAIL_REFRESH_TOKEN
-    - echo "$APP_TOKEN"
-    - echo "$DB_HOST, $DB_USERNAME, $DB_PASSWORD"
+    - echo "$MAF_APP_TOKEN"
+    - echo "$PG_HOST, $PG_USERNAME, $PG_PASSWORD"
     - echo "$CLIENT_ID, $CLIENT_SECRET, $REDIRECT_URI"
   only:
     - main
@@ -75,11 +75,11 @@ build:
 deploy-np:
   extends: .deploy
   variables:
-    APP_TOKEN: $APP_TOKEN
+    APP_TOKEN: $MAF_APP_TOKEN
     APP_GATEWAY_PATH: $APP_GATEWAY_PATH_NP
-    DB_HOST: $DB_HOST
-    DB_PASSWORD: $DB_PASSWORD
-    DB_USERNAME: $DB_USERNAME
+    DB_HOST: $PG_HOST
+    DB_PASSWORD: $PG_PASSWORD
+    DB_USERNAME: $PG_USERNAME
     CLIENT_ID: $GOOGLE_CLIENT_ID_NP
     CLIENT_SECRET: $GOOGLE_CLIENT_SECRET_NP
     REDIRECT_URI: $GOOGLE_REDIRECT_URI_NP
@@ -91,11 +91,11 @@ deploy-np:
 .deploy-prod:
   extends: .deploy
   variables:
-    APP_TOKEN: $APP_TOKEN
+    APP_TOKEN: $MAF_APP_TOKEN
     APP_GATEWAY_PATH: $APP_GATEWAY_PATH_P
-    DB_HOST: $DB_HOST
-    DB_PASSWORD: $DB_PASSWORD
-    DB_USERNAME: $DB_USERNAME
+    DB_HOST: $PG_HOST
+    DB_PASSWORD: $PG_PASSWORD
+    DB_USERNAME: $PG_USERNAME
     CLIENT_ID: $GOOGLE_CLIENT_ID_P
     CLIENT_SECRET: $GOOGLE_CLIENT_SECRET_P
     REDIRECT_URI: $GOOGLE_REDIRECT_URI_P
