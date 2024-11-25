@@ -42,7 +42,6 @@ const sendEmail = async (emailTo, pdfBuffer, reportName, riID, qrID) => {
         <li><strong>Report Date: </strong>${reportDate}</li>
         <li><strong>Quality Represenative (QR): </strong>${qrID}</li>
         <li><strong>Research Interviewer (RI): </strong>${riID}</li>
-        <li><strong>Quality Reviewer (QR): </strong>${qrID}</li>
     `
 
     const info = await transporter.sendMail({
