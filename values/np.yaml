@@ -3,4 +3,4 @@ ingress:
   host: panel-recruitment-quality.sre-np.nielsen.com
 
 image:
-  tag: 1.2.1
+  tag: 1.2.2
