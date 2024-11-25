@@ -29,7 +29,7 @@ build:
     - tqa-rec
 
 #example how to unistall a helm release
-cleanup:
+.cleanup:
   stage: deploy
   image: 307422823171.dkr.ecr.eu-west-1.amazonaws.com/devops/helmfile:1.1.2
   script:
@@ -63,7 +63,7 @@ cleanup:
       --set rds.googleRedirectUri=$REDIRECT_URI
       --set rds.gmailAccessToken=$GMAIL_ACCESS_TOKEN
       --set rds.gmailRefreshToken=$GMAIL_REFRESH_TOKEN
-    - kubectl describe deployment
+    #- kubectl describe deployment
   only:
     - main
   tags:
