@@ -227,6 +227,7 @@ module.exports = (sequelize) => {
   {
     sequelize,
     modelName: 'TEMPFormsTam',
+    tableName: 'us_qa_forms_tam_historical_temp',
     timestamps: true,
     createdAt: 'created_date',
     updatedAt: 'updated_date'

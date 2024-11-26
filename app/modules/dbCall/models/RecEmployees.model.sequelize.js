@@ -33,19 +33,19 @@ module.exports = (sequelize) => {
     location: { 
       type: DataTypes.STRING(255) 
     },
-    callCenterName: { 
+    call_center_name: { 
       type: DataTypes.STRING(255) 
     },
-    siteNameId: { 
+    site_name_id: { 
       type: DataTypes.STRING(10) 
     },
-    teamLeadNumber: { 
+    team_lead_number: { 
       type: DataTypes.BIGINT 
     },
-    teamLeadName: { 
+    team_lead_name: { 
       type: DataTypes.STRING(255) 
     },
-    shiftId: { 
+    shift_id: { 
       type: DataTypes.STRING(2) 
     }
   },
