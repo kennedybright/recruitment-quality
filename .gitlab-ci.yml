@@ -63,8 +63,6 @@ build:
       --set rds.googleRedirectUri=$REDIRECT_URI
       --set rds.gmailAccessToken=$GMAIL_ACCESS_TOKEN
       --set rds.gmailRefreshToken=$GMAIL_REFRESH_TOKEN
-    #- kubectl describe secret panel-recruitment-quality-rds
-    #- kubectl rollout restart -n tqa-panel-recruitment-quality deployment panel-recruitment-quality
   only:
     - main
   tags:

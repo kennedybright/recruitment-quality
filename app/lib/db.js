@@ -47,7 +47,7 @@ try {
       }
     })
     
-    console.log('Sequelize models: ', orm.pgInstance)
+    console.log('Sequelize models: ', orm.pgInstance.models)
   }
 } catch (e) {
   Logger.error(e.message)
