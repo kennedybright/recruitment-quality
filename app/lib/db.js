@@ -48,6 +48,7 @@ try {
     })
     
     console.log('Sequelize models: ', orm.pgInstance.models)
+    console.log('Connection details: ', orm.pgInstance.options)
   }
 } catch (e) {
   Logger.error(e.message)
