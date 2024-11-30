@@ -25,8 +25,7 @@ module.exports = (sequelize) => {
       allowNull: false 
     },
     sample_id: { 
-      type: DataTypes.STRING(20), 
-      allowNull: false 
+      type: DataTypes.STRING(20) 
     },
     record_date: { 
       type: DataTypes.DATEONLY, 
@@ -36,7 +35,7 @@ module.exports = (sequelize) => {
       type: DataTypes.TIME, 
       allowNull: false 
     },
-    ri_shift_id: { 
+    ri_shift: { 
       type: DataTypes.STRING(2), 
       allowNull: false 
     },
@@ -53,8 +52,7 @@ module.exports = (sequelize) => {
       allowNull: false 
     },
     call_direction: { 
-      type: DataTypes.STRING(10), 
-      allowNull: false 
+      type: DataTypes.STRING(10) 
     },
     department: { 
       type: DataTypes.STRING(2), 

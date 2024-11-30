@@ -9,9 +9,7 @@ module.exports = class DBCallController {
   constructor(modelName) {
     this.model = orm[modelName]
     this.modelname = modelName
-  
-    // API DB Resource URL
-    // this.api = this.model.api
+    
     this.pk = this.model.primaryKeyAttributes
     this.repo = new BaseRepository(this.model)
   }

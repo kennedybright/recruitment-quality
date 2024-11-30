@@ -11,7 +11,7 @@ const DBCallController = require('../controller/dbCall.controller')
 const models = Object.entries(orm).map(([modelName, model]) => ({
     name: modelName,
     controller: new DBCallController(modelName),
-    api: model.api,
+    api: model.api, // API DB Resource URL
     methods: model.crud
 }))
 

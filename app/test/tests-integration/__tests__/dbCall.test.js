@@ -20,8 +20,9 @@ jest.mock('@nielsen-media/web-commons-authenticationservice', () => ({
 const createApp = require('../../../app')
 
 test('dbCall: creating/updating/getting a value', async () => {
-  expect.assertions(9)
+  expect.assertions(12)
   const app = await createApp()
+  
   const name = 'testName'
   const nameToUpdate = 'newTestName'
   const postResult = await request(app)
@@ -51,19 +52,43 @@ test('dbCall: creating/updating/getting a value', async () => {
 
   const getAppResult = await request(app)
     .get(`/usremoterecqa/forms/fields`)
-    .send({app_id: 1001})
-  expect(getAppResult.statusCode).toBe(200)
+    .query({app_id: 1001})
   console.log(JSON.parse(getAppResult.text))
-
-  const getFormResult = await request(app)
-    .get(`/usremoterecqa/forms/audio/historical/2748750`)
-  expect(getFormResult.statusCode).toBe(200)
-  console.log(JSON.parse(getFormResult.text))
+  expect(getAppResult.statusCode).toBe(200)
 
   const getQAResult = await request(app)
     .get(`/usremoterecqa/employees/qa/TRAIN`)
-  expect(getQAResult.statusCode).toBe(200)
   console.log(JSON.parse(getQAResult.text))
+  expect(getQAResult.statusCode).toBe(200)
+  
+  const getFormResult = await request(app)
+    .get(`/usremoterecqa/forms/audio/historical/2748750`)
+  const testForm = JSON.parse(getFormResult.text)
+  console.log(testForm)
+  expect(getFormResult.statusCode).toBe(200)
+
+  const submitFormResult = await request(app)
+    .post('/usremoterecqa/forms/temp/audio')
+    .send(testForm)
+  console.log('submitFormResult: ', JSON.parse(submitFormResult.text))
+  expect(submitFormResult.statusCode).toBe(200)
+  
+  const getFormsResult = await request(app)
+    .get(`/usremoterecqa/forms/audio/historical`)
+    .query({
+      record_date: '2024-11-15', 
+      ri_id: 'MX103',
+      qr_id: 'GQA25'
+    })
+  const testForms = JSON.parse(getFormsResult.text)
+  console.log(testForms)
+  expect(getFormsResult.statusCode).toBe(200)
+
+  const submitFormsResult = await request(app)
+    .post('/usremoterecqa/forms/temp/audio')
+    .send(testForms)
+  console.log('submitFormResult: ', JSON.parse(submitFormsResult.text))
+  expect(submitFormResult.statusCode).toBe(200)
 
   const db = require('../../../lib/db')
   db.pgInstance.close()

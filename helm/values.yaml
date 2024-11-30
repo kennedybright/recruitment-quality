@@ -1,6 +1,6 @@
 image:
   registry: registry.gitlab.com/nielsen-media/panel-management/one-media-recruitment/panel-recruitment-quality
-  tag: 2.0.0
+  tag: 2.0.1
 
 replicas: 2
 
