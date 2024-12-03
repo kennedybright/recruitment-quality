@@ -13,6 +13,7 @@ module.exports = (sequelize) => {
     },
     app_id: {
       type: DataTypes.INTEGER,
+      primaryKey: true,
       allowNull: false
     },
     field_name: {
