@@ -1,7 +1,7 @@
 'use strict'
 
 const express = require('express')
-const { sendEmail } = require('../controller/email.controller')
+const { sendReport, sendErrorReport } = require('../controller/email.controller')
 const router = express.Router()
 const { loadRoute } = require('../../../lib/updateManifest')
 
@@ -34,7 +34,19 @@ router.post('/emailReport', async (req, res) => {
 
   try {
     const pdfBuffer = Buffer.from(pdfBase64, 'base64')
-    await sendEmail(emailTo, pdfBuffer, name, ri, qr)
+    await sendReport(emailTo, pdfBuffer, name, ri, qr)
+    res.status(200).json({ message: 'Email sent successfully!' })
+  } catch (error) {
+    console.error('Failed to send email:', error.message)
+    res.status(500).json({ error: 'Failed to send email.' })
+  }
+})
+
+router.post('/emailErrorReport', async (req, res) => {
+  const { emailTo, user, subj, errorMessage } = req.body
+
+  try {
+    await sendErrorReport(emailTo, user, subj, errorMessage)
     res.status(200).json({ message: 'Email sent successfully!' })
   } catch (error) {
     console.error('Failed to send email:', error.message)
@@ -43,5 +55,6 @@ router.post('/emailReport', async (req, res) => {
 })
 
 loadRoute('/emailReport$', '/emailReport', 'POST', 'Trigger daily monitoring report email')
+loadRoute('/emailErrorReport$', '/emailErrorReport', 'POST', 'Trigger system error report email')
 
 module.exports = router
