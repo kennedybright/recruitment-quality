@@ -662,6 +662,18 @@
           "force_source_app": false
         }
       ]
+    },
+    {
+      "path": "/emailErrorReport$",
+      "display_path": "/emailErrorReport",
+      "methods": [
+        {
+          "method": "POST",
+          "description": "Trigger system error report email",
+          "force_user": true,
+          "force_source_app": false
+        }
+      ]
     }
   ]
 }
