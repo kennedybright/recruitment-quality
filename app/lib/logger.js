@@ -1,6 +1,6 @@
 'use strict'
 
-const { createLogger, transports } = require('winston')
+const { createLogger, transports, config } = require('winston')
 const expressWinston = require('express-winston')
 
 /**
@@ -17,7 +17,8 @@ function createWinstonLogger (options = {}) {
   })
 
   const logger = createLogger({
-    transports: [transportConsole]
+    transports: [transportConsole],
+    levels: config.npm.levels
   })
 
   return logger

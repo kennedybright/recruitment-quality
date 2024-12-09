@@ -20,7 +20,7 @@ function createSequelize (DBConfig) {
       idle: DBConfig.pool.idle,
       validateConnection: Sequelize.validate
     },
-    logging: console.log
+    logging: (msg) => Logger.debug(`Sequelize: ${msg}`)
   })
 }
 
@@ -47,8 +47,8 @@ try {
       }
     })
     
-    console.log('Sequelize models: ', orm.pgInstance.models)
-    console.log('Connection details: ', orm.pgInstance.options)
+    Logger.debug('Sequelize models: ', orm.pgInstance.models)//console.log('Sequelize models: ', orm.pgInstance.models)
+    Logger.debug('Connection details: ', orm.pgInstance.options)//console.log('Connection details: ', orm.pgInstance.options)
   }
 } catch (e) {
   Logger.error(e.message)

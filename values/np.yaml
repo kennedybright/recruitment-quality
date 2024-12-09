@@ -12,7 +12,7 @@ healthcheck:
   path: /usremoterecqa/service/health
 
 container:
-  port: 8070
+  port: 8080
 
 env:
   APP_TOKEN:
