@@ -7,8 +7,8 @@ COPY ./deployment /deployment
 WORKDIR /app
 
 RUN npm install
-EXPOSE 8080
+EXPOSE 8070
 CMD ["node", "index.js"]
 
-HEALTHCHECK --interval=5s --timeout=60s --retries=10 CMD curl -f http://localhost:8080/usremoterecqa/service/health || exit 1
+HEALTHCHECK --interval=5s --timeout=60s --retries=10 CMD curl -f http://localhost:8070/usremoterecqa/service/health || exit 1
 
