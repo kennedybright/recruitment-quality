@@ -35,10 +35,6 @@ module.exports = (sequelize) => {
       type: DataTypes.TIME, 
       allowNull: false 
     },
-    site_name_id: { 
-      type: DataTypes.STRING(10), 
-      allowNull: false 
-    },
     ri_shift: { 
       type: DataTypes.STRING(2), 
       allowNull: false 
