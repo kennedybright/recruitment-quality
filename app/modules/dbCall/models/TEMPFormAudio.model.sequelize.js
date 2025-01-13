@@ -54,6 +54,10 @@ module.exports = (sequelize) => {
     call_direction: { 
       type: DataTypes.STRING(10) 
     },
+    audio_smp: { 
+      type: DataTypes.STRING(5),
+      allowNull: false
+    },
     department: { 
       type: DataTypes.STRING(2), 
       allowNull: false 
@@ -169,7 +173,7 @@ module.exports = (sequelize) => {
       type: DataTypes.SMALLINT 
     },
     comments: { 
-      type: DataTypes.TEXT 
+      type: DataTypes.SMALLINT
     },
     other: { 
       type: DataTypes.SMALLINT, 
@@ -188,10 +192,10 @@ module.exports = (sequelize) => {
     mca_category: { 
       type: DataTypes.STRING(50) 
     },
-    mca_category_comments: { 
+    mca_summary_observation: { 
       type: DataTypes.TEXT 
     },
-    mca_summary_observation: { 
+    call_notes: { 
       type: DataTypes.TEXT 
     },
     improper_intro: { 
@@ -237,10 +241,6 @@ module.exports = (sequelize) => {
     },
     updated_by: { 
       type: DataTypes.STRING(10) 
-    },
-    audio_smp: { 
-      type: DataTypes.STRING(5),
-      allowNull: false
     }
   }, 
   {
