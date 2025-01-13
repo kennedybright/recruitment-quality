@@ -61,6 +61,7 @@ module.exports = (sequelize) => {
     modelName: 'ReportsAudioMCABreakdown',
     tableName: 'qa_reports_audio_mca_breakdown',
     freezeTableName: true,
+    timestamps: false
   })
   
   ReportsAudioMCABreakdown.api = ['reports', 'audio', 'mca']
