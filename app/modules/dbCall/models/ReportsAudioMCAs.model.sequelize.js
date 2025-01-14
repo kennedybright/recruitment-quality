@@ -47,9 +47,6 @@ module.exports = (sequelize) => {
     },
     mca_summary_observation: { 
       type: DataTypes.TEXT 
-    },
-    call_notes: { 
-      type: DataTypes.TEXT 
     }
   }, 
   {
