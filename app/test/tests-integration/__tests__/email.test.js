@@ -39,7 +39,7 @@ test('email: emailing quality report', async () => {
     .post('/usremoterecqa/emailReport')
     .send({ 
       emailTo: ['kennedy.bright@nielsen.com'],
-      pdfBase64:Buffer.from('test-pdf-content').toString('base64'),
+      pdfBase64: Buffer.from('test-pdf-content').toString('base64'),
       name:'MCA Report',
       ri:'TESTRI000',
       qr:'TESTQR000'

@@ -30,16 +30,15 @@ router.get('/auth/google/callback', async (req, res) => {
 */
 
 router.post('/emailReport', async (req, res) => {
-  const { emailTo, pdfBlob, name, ri, qr } = req.body
+  const { emailTo, pdfBase64, name, ri, qr } = req.body
 
   try {
-    const arrayBuffer = await pdfBlob.arrayBuffer()
-    const pdfBuffer = Buffer.from(arrayBuffer)
+    const pdfBuffer = Buffer.from(pdfBase64, 'base64')
     await sendReport(emailTo, pdfBuffer, name, ri, qr)
-    res.status(200).json({ message: 'Email sent successfully!' })
+    return res.status(200).json({ message: 'Email sent successfully!' })
   } catch (error) {
     console.error('Failed to send email:', error.message)
-    res.status(500).json({ error: 'Failed to send email.' })
+    return res.status(500).json({ error: 'Failed to send email.' })
   }
 })
 
@@ -48,10 +47,10 @@ router.post('/emailErrorReport', async (req, res) => {
 
   try {
     await sendErrorReport(emailTo, user, subj, errorMessage)
-    res.status(200).json({ message: 'Email sent successfully!' })
+    return res.status(200).json({ message: 'Email sent successfully!' })
   } catch (error) {
     console.error('Failed to send email:', error.message)
-    res.status(500).json({ error: 'Failed to send email.' })
+    return res.status(500).json({ error: 'Failed to send email.' })
   }
 })
 
