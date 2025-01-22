@@ -19,7 +19,7 @@ oAuth2Client.setCredentials({
 })
 
 // email daily quality monitoring report to leadership
-const sendReport = async (emailTo, pdfBuffer, reportName, riID, qrID) => {
+const sendReport = async (emailTo, pdfBuffer, reportName, pdfFilename, riID, qrID) => {
   try {
     const reportDate = new Date()
     console.log(`[${reportDate}] New email trigger for Daily Monitoring Report: ${reportName.toUpperCase()} -- QR: ${qrID} // RI: ${riID} --`)
@@ -52,7 +52,7 @@ const sendReport = async (emailTo, pdfBuffer, reportName, riID, qrID) => {
       subject: `Contact Center Quality - ${reportName} - ${riID}`,
       html: messageHTML,
       attachments: [{
-        filename: `${reportName}-${reportDate.getFullYear()}-${reportDate.getMonth()}-${reportDate.getDate()}-QR_${qrID}-RI_${riID}.pdf`,
+        filename: pdfFilename,
         contentType: 'application/pdf',
         content: pdfBuffer
       }]

@@ -30,11 +30,11 @@ router.get('/auth/google/callback', async (req, res) => {
 */
 
 router.post('/emailReport', async (req, res) => {
-  const { emailTo, pdfBase64, name, ri, qr } = req.body
+  const { emailTo, pdfBase64, name, filename, ri, qr } = req.body
 
   try {
     const pdfBuffer = Buffer.from(pdfBase64, 'base64')
-    await sendReport(emailTo, pdfBuffer, name, ri, qr)
+    await sendReport(emailTo, pdfBuffer, name, filename, ri, qr)
     return res.status(200).json({ message: 'Email sent successfully!' })
   } catch (error) {
     console.error('Failed to send email:', error.message)
