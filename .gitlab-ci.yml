@@ -84,18 +84,18 @@ deploy-np:
     VALUES_FILE: values/np.yaml
     KAAS_AGENT: mptdevops-nonprod-us-east-1-kaas-blue
 
-.deploy-prod:
-  extends: .deploy
-  variables:
-    APP_TOKEN: $MAF_APP_TOKEN
-    APP_GATEWAY_PATH: $APP_GATEWAY_PATH_P
-    DB_HOST: $PG_HOST
-    DB_PASSWORD: $PG_PASSWORD
-    DB_USERNAME: $PG_USERNAME
-    CLIENT_ID: $GOOGLE_CLIENT_ID_P
-    CLIENT_SECRET: $GOOGLE_CLIENT_SECRET_P
-    REDIRECT_URI: $GOOGLE_REDIRECT_URI_P
-    GMAIL_ACCESS_TOKEN: $GMAIL_ACCESS_TOKEN_P
-    GMAIL_REFRESH_TOKEN: $GMAIL_REFRESH_TOKEN_P
-    VALUES_FILE: values/prod.yaml
-    KAAS_AGENT: mptdevops-prod-us-east-1-kaas-blue
+# .deploy-prod:
+#   extends: .deploy
+#   variables:
+#     APP_TOKEN: $MAF_APP_TOKEN
+#     APP_GATEWAY_PATH: $APP_GATEWAY_PATH_P
+#     DB_HOST: $PG_HOST
+#     DB_PASSWORD: $PG_PASSWORD
+#     DB_USERNAME: $PG_USERNAME
+#     CLIENT_ID: $GOOGLE_CLIENT_ID_P
+#     CLIENT_SECRET: $GOOGLE_CLIENT_SECRET_P
+#     REDIRECT_URI: $GOOGLE_REDIRECT_URI_P
+#     GMAIL_ACCESS_TOKEN: $GMAIL_ACCESS_TOKEN_P
+#     GMAIL_REFRESH_TOKEN: $GMAIL_REFRESH_TOKEN_P
+#     VALUES_FILE: values/prod.yaml
+#     KAAS_AGENT: mptdevops-prod-us-east-1-kaas-blue
