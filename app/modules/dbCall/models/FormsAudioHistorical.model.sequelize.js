@@ -256,7 +256,7 @@ module.exports = (sequelize) => {
   })
   
   FormsAudioHistorical.api = ['forms', 'audio', 'historical']
-  FormsAudioHistorical.crud = ['create', 'update', 'findById', 'findAll']
+  FormsAudioHistorical.crud = ['create', 'update', 'findById', 'findAll', 'delete']
   
   return FormsAudioHistorical
 }

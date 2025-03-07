@@ -4,6 +4,7 @@ const HttpStatus = require('http-status')
 const logger = require('../../../lib/logger').loggerFactory()
 const orm = require('../../../lib/db').pgInstance.models
 const BaseRepository = require('../repository/BaseTable')
+const { Op } = require('sequelize')
 
 module.exports = class DBCallController {
   constructor(modelName) {
@@ -66,7 +67,18 @@ module.exports = class DBCallController {
   
   getAllRecords = async(req, res) => {
     try {
-      const conditions = req.query
+      const conditions = { where: {} }
+      for (const key in req.query) {
+        if (req.query.hasOwnProperty(key)) {
+          if (key === "record_date_after") {
+            conditions.where.record_date = {
+              [Op.gt]: new Date(req.query[key])
+            }
+          } else {
+            conditions.where[key] = req.query[key]
+          }
+        }
+      }
       const dbValues = await this.repo.findAll(conditions)
       res.status(HttpStatus.OK).json(dbValues)
     } catch (e) {

@@ -235,7 +235,7 @@ module.exports = (sequelize) => {
   })
   
   FormsTamHistorical.api = ['forms', 'tam', 'historical']
-  FormsTamHistorical.crud = ['create', 'update', 'findById', 'findAll']
+  FormsTamHistorical.crud = ['create', 'update', 'findById', 'findAll', 'delete']
 
   return FormsTamHistorical
 }

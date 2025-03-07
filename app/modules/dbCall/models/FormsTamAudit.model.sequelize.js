@@ -4,9 +4,14 @@ const { Model, DataTypes } = require('sequelize')
 module.exports = (sequelize) => {
   class FormsTamAudit extends Model {} 
   FormsTamAudit.init({
+    audit_transaction_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
+    },
     record_number: { 
-      type: DataTypes.BIGINT, 
-      primaryKey: true,
+      type: DataTypes.BIGINT,
       unique: true,
       allowNull: false 
     },
@@ -14,213 +19,33 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER, 
       allowNull: false 
     },
-    qr_id: { 
-      type: DataTypes.STRING(10), 
+    audit_track:{
+      type: DataTypes.ARRAY,
+      allowNull: false
+    },
+    field_id: { 
+      type: DataTypes.INTEGER, 
       allowNull: false 
     },
-    ri_id: { 
-      type: DataTypes.STRING(10), 
+    field_name: { 
+      type: DataTypes.STRING(255), 
       allowNull: false 
     },
-    cati_id: { 
-      type: DataTypes.STRING, 
-      allowNull: false 
+    old_value: { 
+      type: DataTypes.TEXT, 
+      allowNull: true
     },
-    record_date: { 
+    new_value: { 
+      type: DataTypes.TEXT, 
+      allowNull: true
+    },
+    transaction_date: { 
       type: DataTypes.DATEONLY, 
       allowNull: false 
-    },
-    record_time: { 
-      type: DataTypes.TIME, 
-      allowNull: false 
-    },
-    department: { 
-      type: DataTypes.STRING(2), 
-      allowNull: false 
-    },
-    ri_shift_id: { 
-      type: DataTypes.STRING(2), 
-      allowNull: false 
-    },
-    site_name_id: { 
-      type: DataTypes.STRING(10), 
-      allowNull: false 
-    },
-    study_code_id: { 
-      type: DataTypes.STRING(10), 
-      allowNull: false 
-    },
-    frame_code_id: { 
-      type: DataTypes.STRING(10), 
-      allowNull: false 
-    },
-    call_time: { 
-      type: DataTypes.TIME, 
-      allowNull: false 
-    },
-    call_direction: { 
-      type: DataTypes.STRING(10), 
-      allowNull: false 
-    },
-    call_duration_approx: { 
-      type: DataTypes.BIGINT, 
-      allowNull: false 
-    },
-    audit_tracking: { 
-      type: DataTypes.BOOLEAN, 
-      allowNull: false, 
-      defaultValue: true 
-    },
-    ipv_daypart: { 
-      type: DataTypes.STRING(3), 
-      allowNull: false 
-    },
-    call_outcome: { 
-      type: DataTypes.STRING(50), 
-      allowNull: false 
-    },
-    delivery_skills_a1: { 
-      type: DataTypes.STRING(20) 
-    },
-    delivery_skills_a2: { 
-      type: DataTypes.STRING(20) 
-    },
-    delivery_skills_a3: { 
-      type: DataTypes.STRING(20) 
-    },
-    delivery_skills_a4: { 
-      type: DataTypes.STRING(20) 
-    },
-    delivery_skills_a5: { 
-      type: DataTypes.STRING(20) 
-    },
-    delivery_skills_a6: { 
-      type: DataTypes.STRING(20) 
-    },
-    delivery_skills_a7: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b1: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b2: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b3_a: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b3_b: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b4_a: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b4_b: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b5_a: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b5_b: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b6: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b7: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b8: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b9: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b10: { 
-      type: DataTypes.STRING(20) 
-    },
-    compliance_b11: { 
-      type: DataTypes.STRING(20) 
-    },
-    delivery_skills_a1_comments: { 
-      type: DataTypes.TEXT 
-    },
-    delivery_skills_a2_comments: { 
-      type: DataTypes.TEXT 
-    },
-    delivery_skills_a3_comments: { 
-      type: DataTypes.TEXT 
-    },
-    delivery_skills_a4_comments: { 
-      type: DataTypes.TEXT 
-    },
-    delivery_skills_a5_comments: { 
-      type: DataTypes.TEXT 
-    },
-    delivery_skills_a6_comments: { 
-      type: DataTypes.TEXT 
-    },
-    delivery_skills_a7_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b1_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b2_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b3_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b4_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b5_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b6_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b7_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b8_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b9_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b10_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b11_comments: { 
-      type: DataTypes.TEXT 
-    },
-    delivery_skills_score: { 
-      type: DataTypes.INTEGER, 
-      allowNull: false 
-    },
-    compliance_score: { 
-      type: DataTypes.INTEGER, 
-      allowNull: false 
-    },
-    total_score: { 
-      type: DataTypes.INTEGER, 
-      allowNull: false 
-    },
-    created_date: { 
-      type: DataTypes.DATEONLY, 
-      allowNull: false 
-    },
-    updated_date: { 
-      type: DataTypes.DATEONLY 
     },
     created_by: { 
       type: DataTypes.STRING(10), 
       allowNull: false 
-    },
-    updated_by: { 
-      type: DataTypes.STRING(10) 
     }
   }, 
   {
@@ -229,12 +54,11 @@ module.exports = (sequelize) => {
     tableName: 'us_qa_forms_tam_audit',
     freezeTableName: true,
     timestamps: true,
-    createdAt: 'created_date',
-    updatedAt: 'updated_date'
+    createdAt: 'transaction_date'
   })
   
-  FormsTamAudit.api = ['forms', 'tam', 'audit']
+  FormsTamAudit.api = ['forms', 'audio', 'audit']
   FormsTamAudit.crud = ['create', 'update', 'findById', 'findAll']
-
+  
   return FormsTamAudit
 }
