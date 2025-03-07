@@ -68,9 +68,10 @@ module.exports = class DBCallController {
   getAllRecords = async(req, res) => {
     try {
       const conditions = { where: { ...req.query } }
-      if (conditions.where.record_date_after) {
-        const parsedDate = new Date(value)
+      if (req.query.record_date_after) {
+        const parsedDate = new Date(req.query.record_date_after)
         conditions.where.record_date = { [Op.gt]: parsedDate }
+        delete conditions.where.record_date_after
       }
       // Object.entries(req.query).forEach(([key, value]) => {
       //   if (key === "record_date_after") {
