@@ -28,12 +28,12 @@ models.forEach(({ name, controller, api, methods }) => {
         createDbMap.set('default', controller.createRecord)
         router.post(dynamicURL, versionRouter.route(createDbMap))
 
-        restActions.push({
-            routePath: `${dynamicURL}$`,
-            displayPath: dynamicURL,
-            method: 'POST',
-            description: `Post ${context} values`
-        })
+        // restActions.push({
+        //     routePath: `${dynamicURL}$`,
+        //     displayPath: dynamicURL,
+        //     method: 'POST',
+        //     description: `Post ${context} values`
+        // })
     }
 
     if (methods.includes('update')) {
@@ -41,12 +41,12 @@ models.forEach(({ name, controller, api, methods }) => {
         updateDbMap.set('default', controller.updateRecord)
         router.put(`${dynamicURL}/:id`, versionRouter.route(updateDbMap))
 
-        restActions.push({
-            routePath: `${dynamicURL}/[0-9]+`,
-            displayPath: `${dynamicURL}/:id`,
-            method: 'PUT',
-            description: `Put ${context} value by ${byId}`
-        })
+        // restActions.push({
+        //     routePath: `${dynamicURL}/[0-9]+`,
+        //     displayPath: `${dynamicURL}/:id`,
+        //     method: 'PUT',
+        //     description: `Put ${context} value by ${byId}`
+        // })
     }
 
     if (methods.includes('delete')) {
@@ -54,12 +54,12 @@ models.forEach(({ name, controller, api, methods }) => {
         deleteDbMap.set('default', controller.deleteRecord)
         router.delete(`${dynamicURL}/:id`, versionRouter.route(deleteDbMap))
 
-        restActions.push({
-            routePath: `${dynamicURL}/[0-9]+`,
-            displayPath: `${dynamicURL}/:id`,
-            method: 'DELETE',
-            description: `Delete ${context} value by ${byId}`
-        })
+        // restActions.push({
+        //     routePath: `${dynamicURL}/[0-9]+`,
+        //     displayPath: `${dynamicURL}/:id`,
+        //     method: 'DELETE',
+        //     description: `Delete ${context} value by ${byId}`
+        // })
      }
 
     if (methods.includes('findById')) {
@@ -80,20 +80,20 @@ models.forEach(({ name, controller, api, methods }) => {
         getAllDbMap.set('default', controller.getAllRecords)
         router.get(dynamicURL, versionRouter.route(getAllDbMap))
 
-        restActions.push({
-            routePath: `${dynamicURL}$`,
-            displayPath: dynamicURL,
-            method: 'GET',
-            description: `Get all ${context} values`
-        })
+        // restActions.push({
+        //     routePath: `${dynamicURL}$`,
+        //     displayPath: dynamicURL,
+        //     method: 'GET',
+        //     description: `Get all ${context} values`
+        // })
     }
 
     // Update manifest file and add new rest actions
-    if (name !== 'TestTable') {
-        restActions.forEach(({ routePath, displayPath, method, description }) =>
-            loadRoute(routePath, displayPath, method, description)
-        )
-    }
+    // if (name !== 'TestTable') {
+    //     restActions.forEach(({ routePath, displayPath, method, description }) =>
+    //         loadRoute(routePath, displayPath, method, description)
+    //     )
+    // }
 })
 
 module.exports = router
