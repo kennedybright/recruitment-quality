@@ -69,16 +69,18 @@ module.exports = class DBCallController {
     try {
       const conditions = { where: {} }
       for (const key in req.query) {
-        if (req.query.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(req.query, key)) {
+          const value = req.query[key]
           if (key === "record_date_after") {
-            conditions.where.record_date = {
-              [Op.gt]: new Date(req.query[key])
-            }
+            const parsedDate = new Date(value)
+            conditions.where.record_date = { [Op.gt]: parsedDate }
           } else {
-            conditions.where[key] = req.query[key]
+            conditions.where[key] = value
           }
         }
       }
+      
+      console.log("Sequelize GET Conditions: ", JSON.stringify(conditions, null, 2))
       const dbValues = await this.repo.findAll(conditions)
       res.status(HttpStatus.OK).json(dbValues)
     } catch (e) {

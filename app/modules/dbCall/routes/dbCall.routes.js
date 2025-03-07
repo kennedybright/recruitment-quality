@@ -60,7 +60,7 @@ models.forEach(({ name, controller, api, methods }) => {
         //     method: 'DELETE',
         //     description: `Delete ${context} value by ${byId}`
         // })
-     }
+    }
 
     if (methods.includes('findById')) {
         const getDbMap = new Map()

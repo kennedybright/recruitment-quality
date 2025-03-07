@@ -58,7 +58,7 @@ module.exports = (sequelize) => {
   })
   
   FormsAudioAudit.api = ['forms', 'audio', 'audit']
-  FormsAudioAudit.crud = ['create', 'update', 'findById', 'findAll']
+  FormsAudioAudit.crud = ['create', 'findById', 'findAll']
   
   return FormsAudioAudit
 }
