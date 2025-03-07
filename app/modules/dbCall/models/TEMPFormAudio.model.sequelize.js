@@ -62,17 +62,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(2), 
       allowNull: false 
     },
-    audit: { 
-      type: DataTypes.BOOLEAN, 
-      allowNull: false 
-    },
-    phone_nm: { 
-      type: DataTypes.STRING, 
-      allowNull: true
-    },
-    audit_tracking: { 
-      type: DataTypes.STRING,
-    },
     introduction: { 
       type: DataTypes.SMALLINT 
     },
