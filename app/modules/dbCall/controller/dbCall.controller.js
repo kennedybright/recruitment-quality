@@ -67,15 +67,15 @@ module.exports = class DBCallController {
   
   getAllRecords = async(req, res) => {
     try {
-      const conditions = { where: {} }
-      Object.entries(req.query).forEach(([key, value]) => {
-        if (key === "record_date_after") {
-          const parsedDate = new Date(value)
-          conditions.where.record_date = { [Op.gt]: parsedDate }
-        } else {
-          conditions.where[key] = value
-        }
-      })
+      const conditions = req.query //{ where: {} }
+      // Object.entries(req.query).forEach(([key, value]) => {
+      //   if (key === "record_date_after") {
+      //     const parsedDate = new Date(value)
+      //     conditions.where.record_date = { [Op.gt]: parsedDate }
+      //   } else {
+      //     conditions.where[key] = value
+      //   }
+      // })
 
       console.log("Sequelize GET Conditions: ", JSON.stringify(conditions, null, 2))
       const dbValues = await this.repo.findAll(conditions)
