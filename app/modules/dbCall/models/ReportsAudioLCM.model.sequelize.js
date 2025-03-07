@@ -43,8 +43,8 @@ module.exports = (sequelize) => {
     timestamps: false
   })
   
-  ReportsAudioFinalScore.api = ['reports', 'audio', 'lcm']
-  ReportsAudioFinalScore.crud = ['findAll']
+  ReportsAudioLCM.api = ['reports', 'audio', 'lcm']
+  ReportsAudioLCM.crud = ['findAll']
   
   return ReportsAudioLCM
 }

@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
       allowNull: false 
     },
     audit_track:{
-      type: DataTypes.ARRAY,
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: false
     },
     field_id: { 
