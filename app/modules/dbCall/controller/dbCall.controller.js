@@ -70,13 +70,13 @@ module.exports = class DBCallController {
   getAllRecords = async(req, res) => {
     try {
       console.log("Request query: ", JSON.stringify(req.query))
-      const conditions = { ...req.query } //{ where: { ...req.query } }
+      //const conditions = { ...req.query } //{ where: { ...req.query } }
       if (req.query.record_date_after) {
         const parsedDate = new Date(req.query.record_date_after)
-        conditions.record_date = { [Op.gte]: parsedDate.toISOString().split("T")[0] }
-        delete conditions.record_date_after
+        req.query.record_date = { [Op.gte]: parsedDate.toISOString().split("T")[0] }
+        delete req.query.record_date_after
       }
-
+      const conditions = req.query
       // if (!Array.isArray(data)) {
       //   // single create
       //   const dbValue = await this.repo.create(data)
