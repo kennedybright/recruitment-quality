@@ -19,9 +19,11 @@ module.exports = class DBCallController {
     try {
       const data = req.body
       if (!Array.isArray(data)) {
+        // single create
         const dbValue = await this.repo.create(data)
         res.status(HttpStatus.OK).json(dbValue)
       } else {
+        // bulk create
         const dbValues = await this.repo.bulkCreate(data)
         res.status(HttpStatus.OK).json(dbValues)
       }
@@ -67,12 +69,23 @@ module.exports = class DBCallController {
   
   getAllRecords = async(req, res) => {
     try {
-      const conditions = { where: { ...req.query } }
+      console.log("Request query: ", JSON.stringify(req.query))
+      const conditions = { ...req.query } //{ where: { ...req.query } }
       if (req.query.record_date_after) {
         const parsedDate = new Date(req.query.record_date_after)
-        conditions.where.record_date = { [Op.gt]: parsedDate }
-        delete conditions.where.record_date_after
+        conditions.record_date = { [Op.gte]: parsedDate.toISOString().split("T")[0] }
+        delete conditions.record_date_after
       }
+
+      // if (!Array.isArray(data)) {
+      //   // single create
+      //   const dbValue = await this.repo.create(data)
+      //   res.status(HttpStatus.OK).json(dbValue)
+      // } else {
+      //   // bulk create
+      //   const dbValues = await this.repo.bulkCreate(data)
+      //   res.status(HttpStatus.OK).json(dbValues)
+      // }
       // Object.entries(req.query).forEach(([key, value]) => {
       //   if (key === "record_date_after") {
       //     const parsedDate = new Date(value)
