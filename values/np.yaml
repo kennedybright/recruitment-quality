@@ -4,7 +4,7 @@ ingress:
 
 image:
   registry: registry.gitlab.com/nielsen-media/panel-management/one-media-recruitment/panel-recruitment-quality
-  tag: 2.4.4
+  tag: 2.4.5
 
 replicas: 2
 
