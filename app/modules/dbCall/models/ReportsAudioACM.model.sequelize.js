@@ -206,8 +206,6 @@ module.exports = (sequelize) => {
     tableName: 'qa_reports_audio_all_calls',
     freezeTableName: true,
     timestamps: true,
-    createdAt: 'created_date',
-    updatedAt: 'updated_date'
   })
   
   ReportsAudioACM.api = ['reports', 'audio', 'acm']
