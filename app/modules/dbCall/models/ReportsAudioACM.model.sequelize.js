@@ -74,6 +74,9 @@ module.exports = (sequelize) => {
     home_address: { 
       type: DataTypes.SMALLINT 
     },
+    mailing_address: { 
+      type: DataTypes.SMALLINT 
+    },
     cooperation: { 
       type: DataTypes.SMALLINT 
     },
