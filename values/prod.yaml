@@ -1,10 +1,10 @@
 ingress:
-  cert_arn: arn:aws:acm:us-east-1:753119227612:certificate/4f4780e6-4c03-4355-aaba-b1030bfdeb4e
+  cert_arn: arn:aws:acm:us-east-1:565189415401:certificate/6ed78230-244f-4eda-a249-a80287395fa5
   host: panel-recruitment-quality.sre.nielsen.com
 
 image:
   registry: registry.gitlab.com/nielsen-media/panel-management/one-media-recruitment/panel-recruitment-quality
-  tag: 2.2.1
+  tag: 2.4.6
 
 replicas: 2
 
