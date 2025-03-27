@@ -36,7 +36,7 @@ cleanup-np:
     - kubectl config use-context nielsen-media/platforms/tools-devops-external/runners-as-a-service/runner-tqa-panel-recruitment-quality:mptdevops-nonprod-us-east-1-kaas-blue
     - helm del panel-recruitment-quality -n tqa-panel-recruitment-quality
   when: manual
-    tags:
+  tags:
     - tqa-rec
 
 .deploy:
