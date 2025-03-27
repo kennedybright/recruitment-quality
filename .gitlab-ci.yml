@@ -29,7 +29,7 @@ build:
     - tqa-rec
 
 #example how to unistall a helm release
-.cleanup:
+cleanup:
   stage: deploy
   image: 307422823171.dkr.ecr.eu-west-1.amazonaws.com/devops/helmfile:1.1.2
   script:
