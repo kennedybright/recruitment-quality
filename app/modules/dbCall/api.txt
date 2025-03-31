@@ -1,4 +1,4 @@
-curl --POST 'https://externalgw.api.apps.nielsen.com/infra/authentication/users' \
+curl --POST 'https://externalgw.dev.apps.nielsen.com/infra/authentication/users' \
 --header 'x-api-key: db1ad603bd94f2806d419c76d33f9bca7d9c9d60' \
 --header 'Content-Type: application/json' \
 --data-raw '{
