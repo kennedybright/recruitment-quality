@@ -1,4 +1,5 @@
-FROM node:20.18.0
+FROM public.ecr.aws/docker/library/node:20.18 
+# node:20.18.0
 
 COPY ./app /app
 COPY .npmrc /app/.npmrc
