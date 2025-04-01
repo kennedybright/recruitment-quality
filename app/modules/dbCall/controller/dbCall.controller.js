@@ -4,7 +4,8 @@ const HttpStatus = require('http-status')
 const logger = require('../../../lib/logger').loggerFactory()
 const orm = require('../../../lib/db').pgInstance.models
 const BaseRepository = require('../repository/BaseTable')
-const sequelize = require('sequelize')
+const Sequelize = require('sequelize')
+const { sequelizeModels } = require('../../../config/assets')
 
 module.exports = class DBCallController {
   constructor(modelName) {
@@ -45,7 +46,7 @@ module.exports = class DBCallController {
   }
   
   updateRecord = async(req, res) => {
-    const { updates } = req.body
+    const updates = req.body
 
     // if (!Array.isArray(data)) {
     //   // single update
@@ -58,12 +59,11 @@ module.exports = class DBCallController {
     //   }
     // } else {
     //   // bulk update
-      const transaction = await sequelize.transaction()
+      const transaction = await Sequelize.transaction()
       try {
         let dbValues = []
         for (const item of updates) {
-          const record = await this.repo.findById(item.record_number, { transaction })
-          const dbValue = await record.update(item, { transaction })
+          const dbValue = await this.repo.update(item.record_number, item, transaction)
           dbValues.push(dbValue)
         }
         await transaction.commit()
@@ -71,7 +71,7 @@ module.exports = class DBCallController {
       } catch (e) {
         logger.error(e)
         await transaction.rollback()
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message, data: updates })
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
       }
     // }
   }

@@ -57,15 +57,14 @@ module.exports = class BaseRepository {
    * Update a record by its primary key
    * @param {string|number} id - Primary key value
    * @param {Object} data - Data to update
+   * @param {Object} transaction - Sequelize transaction
    * @returns {Promise<Object|null>} - Updated record or null if not found
    */
-  async update(id, data) {
+  async update(id, data, transaction) {
     try {
-      const [rows, [updatedRecord]] = await this.model.update(data, {
-        where: { id },
-        returning: true,
-      })
-      return rows > 0 ? updatedRecord : null
+      const record = await this.model.findByPk(id)
+      const updatedRecord = await record.update(data, { returning: true, transaction })
+      return updatedRecord ?? null
     } catch (error) {
       throw new Error(`Error updating record with ID [${id}]: ${error.message}`)
     }
