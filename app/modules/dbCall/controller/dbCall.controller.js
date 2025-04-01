@@ -57,14 +57,14 @@ module.exports = class DBCallController {
         res.status(HttpStatus.OK).json(dbValue)
       } catch (e) {
         logger.error(e)
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message, data })
       }
     } else {
       // bulk update
-      const transaction = await sequelize.Transaction()
+      const transaction = await sequelize.transaction()
       try {
-        let dbValues = any
-        for (const item in data) {
+        let dbValues = []
+        for (const item of data) {
           const dbValue = await this.repo.update(item, { where: {[pk]: item[pk]}, transaction })
           dbValues.push(dbValue)
         }
