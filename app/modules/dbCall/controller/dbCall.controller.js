@@ -70,7 +70,7 @@ module.exports = class DBCallController {
       } catch (e) {
         logger.error(e)
         await transaction.rollback()
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message, updates })
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message, data: updates })
       }
     // }
   }
