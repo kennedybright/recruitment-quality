@@ -45,38 +45,34 @@ module.exports = class DBCallController {
   }
   
   updateRecord = async(req, res) => {
-    const pk = Object.keys(this.model.rawAttributes).find(attr => this.model.rawAttributes[attr].primaryKey)
-    const data = req.body
-    console.log("PUT request req.body: ", data)
+    const { updates } = req.body
 
-    if (!Array.isArray(data)) {
-      // single update
-      try {
-        const dbValue = await this.repo.update(data, {where: {[pk]: data[pk]}})
-        console.log("dbValue: ", dbValue)
-        res.status(HttpStatus.OK).json(dbValue)
-      } catch (e) {
-        logger.error(e)
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message, data })
-      }
-    } else {
-      // bulk update
+    // if (!Array.isArray(data)) {
+    //   // single update
+    //   try {
+    //     const dbValue = await this.repo.update(updates, {where: {[id]: data[id]}})
+    //     res.status(HttpStatus.OK).json(dbValue)
+    //   } catch (e) {
+    //     logger.error(e)
+    //     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message, updates })
+    //   }
+    // } else {
+    //   // bulk update
       const transaction = await sequelize.transaction()
       try {
         let dbValues = []
-        for (const item of data) {
-          const dbValue = await this.repo.update(item, { where: {[pk]: item[pk]}, transaction })
+        for (const item of updates) {
+          const dbValue = await this.repo.update(item, { where: {[id]: item[id]}, transaction })
           dbValues.push(dbValue)
         }
-        console.log("dbValues: ", dbValues)
         await transaction.commit()
         res.status(HttpStatus.OK).json(dbValues)
       } catch (e) {
         logger.error(e)
         await transaction.rollback()
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message, updates })
       }
-    }
+    // }
   }
   
   deleteRecord = async(req, res) => {
