@@ -39,7 +39,7 @@ models.forEach(({ name, controller, api, methods }) => {
     if (methods.includes('update')) {
         const updateDbMap = new Map()
         updateDbMap.set('default', controller.updateRecord)
-        router.put(`${dynamicURL}/:id`, versionRouter.route(updateDbMap))
+        router.put(dynamicURL, versionRouter.route(updateDbMap))
 
         // restActions.push({
         //     routePath: `${dynamicURL}/[0-9]+`,
