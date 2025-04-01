@@ -67,12 +67,12 @@ models.forEach(({ name, controller, api, methods }) => {
         getDbMap.set('default', controller.getRecordById)
         router.get(`${dynamicURL}/:id`, versionRouter.route(getDbMap))
 
-        restActions.push({
-            routePath: `${dynamicURL}/[0-9]+`,
-            displayPath: `${dynamicURL}/:id`,
-            method: 'GET',
-            description: `Get ${context} value by ${byId}`
-        })
+        // restActions.push({
+        //     routePath: `${dynamicURL}/[0-9]+`,
+        //     displayPath: `${dynamicURL}/:id`,
+        //     method: 'GET',
+        //     description: `Get ${context} value by ${byId}`
+        // })
     }
 
     if (methods.includes('findAll')) {
