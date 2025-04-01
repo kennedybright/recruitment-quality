@@ -47,11 +47,13 @@ module.exports = class DBCallController {
   updateRecord = async(req, res) => {
     const pk = Object.keys(this.model.rawAttributes).find(attr => this.model.rawAttributes[attr].primaryKey)
     const data = req.body
+    console.log("PUT request req.body: ", data)
 
     if (!Array.isArray(data)) {
       // single update
       try {
         const dbValue = await this.repo.update(data, {where: {[pk]: data[pk]}})
+        console.log("dbValue: ", dbValue)
         res.status(HttpStatus.OK).json(dbValue)
       } catch (e) {
         logger.error(e)
@@ -66,6 +68,7 @@ module.exports = class DBCallController {
           const dbValue = await this.repo.update(item, { where: {[pk]: item[pk]}, transaction })
           dbValues.push(dbValue)
         }
+        console.log("dbValues: ", dbValues)
         await transaction.commit()
         res.status(HttpStatus.OK).json(dbValues)
       } catch (e) {
