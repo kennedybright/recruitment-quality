@@ -62,7 +62,8 @@ module.exports = class DBCallController {
       try {
         let dbValues = []
         for (const item of updates) {
-          const dbValue = await this.repo.update(item, { where: { record_number: item.record_number}, transaction })
+          const record = await this.repo.findById(item.record_number, { transaction })
+          const dbValue = await record.update(item, { transaction })
           dbValues.push(dbValue)
         }
         await transaction.commit()
