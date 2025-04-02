@@ -39,7 +39,7 @@ module.exports = (sequelize) => {
       allowNull: true
     },
     transaction_date: { 
-      type: DataTypes.DATEONLY, 
+      type: DataTypes.DATE, 
       allowNull: false 
     },
     created_by: { 

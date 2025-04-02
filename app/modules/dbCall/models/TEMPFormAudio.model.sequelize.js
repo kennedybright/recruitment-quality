@@ -221,11 +221,11 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN 
     },
     created_date: { 
-      type: DataTypes.DATEONLY, 
+      type: DataTypes.DATE, 
       allowNull: false 
     },
     updated_date: { 
-      type: DataTypes.DATEONLY 
+      type: DataTypes.DATE 
     },
     created_by: { 
       type: DataTypes.STRING(10), 
