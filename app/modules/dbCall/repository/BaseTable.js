@@ -62,15 +62,12 @@ module.exports = class BaseRepository {
    */
   async update(id, data, transaction) {
     try {
-      const [rows, [updatedRecord]] = await this.model.update(data, {
-        where: { id },
+      const updatedRecord = await this.model.update(data, { 
+        where: { record_number: id },
         returning: true,
+        transaction 
       })
-      return rows > 0 ? updatedRecord : null
-      // const updatedRecord = await this.model.update(data, { 
-      //   where: { record_number: id },
-      //   returning: true }) //, transaction })
-      // return updatedRecord ?? null
+      return updatedRecord ?? null
     } catch (error) {
       throw new Error(`Error updating record with ID [${id}]: ${error.message}`)
     }

@@ -47,36 +47,21 @@ module.exports = class DBCallController {
   
   updateRecord = async(req, res) => {
     const updates = req.body
-
-    // if (!Array.isArray(data)) {
-    //   // single update
-    //   try {
-    //     const dbValue = await this.repo.update(updates, {where: {[id]: data[id]}})
-    //     res.status(HttpStatus.OK).json(dbValue)
-    //   } catch (e) {
-    //     logger.error(e)
-    //     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message, updates })
-    //   }
-    // } else {
-    //   // bulk update
-      // const transaction = await Sequelize.transaction()
-      try {
-        let dbValues = []
-        for (const item of updates) {
-          const dbValue = await this.repo.model.update(item, {
-            where: { record_number: item.record_number },
-            returning: true,
-          })//.update(item.record_number, item)//, transaction)
-          dbValues.push(dbValue)
-        }
-        // await transaction.commit()
-        res.status(HttpStatus.OK).json(dbValues)
-      } catch (e) {
-        logger.error(e)
-        // await transaction.rollback()
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
+    const transaction = await Sequelize.transaction()
+    
+    try {
+      let dbValues = []
+      for (const item of updates) {
+        const dbValue = await this.repo.update(item.record_number, item, transaction)
+        dbValues.push(dbValue)
       }
-    // }
+      await transaction.commit()
+      res.status(HttpStatus.OK).json(dbValues)
+    } catch (e) {
+      logger.error(e)
+      await transaction.rollback()
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
+    }
   }
   
   deleteRecord = async(req, res) => {
