@@ -47,19 +47,19 @@ module.exports = class DBCallController {
   
   updateRecord = async(req, res) => {
     const updates = req.body
-    const transaction = await Sequelize.transaction()
+    // const transaction = await Sequelize.transaction()
     
     try {
       let dbValues = []
       for (const item of updates) {
-        const dbValue = await this.repo.update(item.record_number, item, transaction)
+        const dbValue = await this.repo.update(item.record_number, item)//, transaction)
         dbValues.push(dbValue)
       }
-      await transaction.commit()
+      // await transaction.commit()
       res.status(HttpStatus.OK).json(dbValues)
     } catch (e) {
       logger.error(e)
-      await transaction.rollback()
+      // await transaction.rollback()
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
     }
   }
