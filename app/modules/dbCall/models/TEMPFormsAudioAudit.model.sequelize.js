@@ -12,7 +12,6 @@ module.exports = (sequelize) => {
     },
     record_number: { 
       type: DataTypes.BIGINT,
-      unique: true,
       allowNull: false 
     },
     app_id: { 
