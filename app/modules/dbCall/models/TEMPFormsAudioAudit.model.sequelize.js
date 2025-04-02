@@ -53,7 +53,8 @@ module.exports = (sequelize) => {
     tableName: 'us_qa_forms_audio_audit_temp',
     freezeTableName: true,
     timestamps: true,
-    createdAt: 'transaction_date'
+    createdAt: 'transaction_date',
+    updatedAt: false
   })
   
   TEMPFormsAudioAudit.api = ['forms', 'temp', 'audio', 'audit']
