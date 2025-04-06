@@ -48,7 +48,7 @@ const sendReport = async (emailTo, pdfBuffer, reportName, pdfFilename, riID, qrI
 
     const info = await transporter.sendMail({
       from: "audioqualityreporting@nielsen.com",
-      to: emailTo.join(','),
+      to: emailTo,
       subject: `Contact Center Quality - ${reportName} - ${riID}`,
       html: messageHTML,
       attachments: [{
