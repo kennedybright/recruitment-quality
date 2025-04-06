@@ -1,4 +1,5 @@
 'use strict'
+const sequelize = require('../../../lib/db').pgInstance // initialized sequelize instance 
 
 /**
   * @class BaseRepository
@@ -57,13 +58,15 @@ module.exports = class BaseRepository {
    * Update a record by its primary key
    * @param {string|number} id - Primary key value
    * @param {Object} data - Data to update
+   * @param {Object} transaction - Sequelize transaction instance
    * @returns {Promise<Object|null>} - Updated record or null if not found
    */
   async update(id, data) {
     try {
       const updatedRecord = await this.model.update(data, { 
         where: { record_number: id },
-        returning: true 
+        returning: true,
+        transaction: transaction
       })
       return updatedRecord ?? null
     } catch (error) {

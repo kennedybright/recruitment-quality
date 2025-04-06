@@ -24,11 +24,11 @@ module.exports = (sequelize) => {
     },
     field_id: { 
       type: DataTypes.INTEGER, 
-      allowNull: false 
+      allowNull: true 
     },
     field_name: { 
       type: DataTypes.STRING(255), 
-      allowNull: false 
+      allowNull: true 
     },
     old_value: { 
       type: DataTypes.TEXT, 

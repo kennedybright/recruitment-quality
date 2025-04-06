@@ -2,14 +2,15 @@
 
 const HttpStatus = require('http-status')
 const logger = require('../../../lib/logger').loggerFactory()
-const orm = require('../../../lib/db').pgInstance.models
+const orm = require('../../../lib/db').pgInstance
 const BaseRepository = require('../repository/BaseTable')
-const Sequelize = require('sequelize')
-const { sequelizeModels } = require('../../../config/assets')
+// const Sequelize = require('sequelize')
+// const { sequelizeModels } = require('../../../config/assets')
 
 module.exports = class DBCallController {
   constructor(modelName) {
-    this.model = orm[modelName]
+    this.sequelize = orm
+    this.model = orm.models[modelName]
     this.modelname = modelName
     
     this.pk = this.model.primaryKeyAttributes
@@ -46,25 +47,59 @@ module.exports = class DBCallController {
   }
   
   updateRecord = async(req, res) => {
-    const updates = req.body
+    const transaction = await this.sequelize.transaction()
     try {
+      const updates = req.body
       let dbValues = []
       for (const item of updates) {
-        const dbValue = await this.repo.update(item.record_number, item)
+        const dbValue = await this.repo.update(item.record_number, item, transaction)
         dbValues.push(dbValue)
       }
-      res.status(HttpStatus.OK).json(dbValues)
+
+      // Filter out null records (failed updates)
+      const successfulDbValues = dbValues.filter(record => record !== null)
+      if (successfulDbValues.length === updates.length) { 
+        await transaction.commit()
+        res.status(HttpStatus.OK).json(dbValues)
+      } else {
+        await transaction.rollback()
+        logger.error('Not all records were updated. Transaction rolled back.');
+        // logger.error('Successfully updated records:', successfulDbValues.map(r => r.record_number))
+        console.error('Failed attempt to update the following records:', updates.filter((_, index) => dbValues[index] === null).map(r => r.record_number))
+        res.status(HttpStatus.CONFLICT).json({ message: e.message })
+      }
     } catch (e) {
+      await transaction.rollback()
       logger.error(e)
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
     }
   }
   
   deleteRecord = async(req, res) => {
+    const transaction = await this.sequelize.transaction()
     try {
-      const { id } = req.params
-      const dbValue = await this.repo.delete(id)
-      res.status(HttpStatus.OK).json(dbValue)
+      const data = req.body
+      let dbValues = []
+      for (const item of data) {
+        const dbValue = await this.repo.delete(item.record_number)
+        dbValues.push(dbValue)
+      }
+
+      // Filter out null records (failed deletions)
+      const successfulDbValues = dbValues.filter(record => record !== null)
+      if (successfulDbValues.length === updates.length) { 
+        await transaction.commit()
+        res.status(HttpStatus.OK).json(dbValues)
+      } else {
+        await transaction.rollback()
+        logger.error('Not all records were deleted. Transaction rolled back.');
+        // logger.error('Successfully deleted records:', successfulDbValues.map(r => r.record_number))
+        console.error('Failed attempt to delete the following records:', updates.filter((_, index) => dbValues[index] === null).map(r => r.record_number))
+        res.status(HttpStatus.CONFLICT).json({ message: e.message })
+      }
+      // const { id } = req.params
+      // const dbValue = await this.repo.delete(id)
+      // res.status(HttpStatus.OK).json(dbValue)
     } catch (e) {
       logger.error(e)
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
