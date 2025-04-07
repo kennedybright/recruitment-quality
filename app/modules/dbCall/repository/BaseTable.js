@@ -82,7 +82,7 @@ module.exports = class BaseRepository {
   async delete(id, transaction) {
     try {
       const result = await this.model.destroy({ where: { id }, transaction: transaction })
-      return result > 0
+      return result ?? null
     } catch (error) {
       throw new Error(`Error deleting record with ID [${id}]: ${error.message}`)
     }
