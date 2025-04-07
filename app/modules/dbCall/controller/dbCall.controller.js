@@ -76,24 +76,22 @@ module.exports = class DBCallController {
     try {
       logger.info(req.body)
       const { ids } = req.body
-      const dbValues = await this.repo.delete(ids, transaction)
-      await transaction.commit()
-      res.status(HttpStatus.OK).json(dbValues)
-      // let dbValues = []
-      // for (const item of data) {
-      //   const dbValue = await this.repo.delete(item.record_number, transaction)
-      //   dbValues.push(dbValue)
-      // }
+      let dbValues = []
+      for (const id of ids) {
+        const dbValue = await this.repo.delete(id, transaction)
+        dbValues.push(dbValue)
+      }
 
       // Filter out null records (failed deletions)
-      // const successfulDbValues = dbValues.filter(record => record !== null)
-      // if (successfulDbValues.length === updates.length) { 
-      //   await transaction.commit()
-      //   res.status(HttpStatus.OK).json(dbValues)
-      // } else {
-      //   await transaction.rollback()
-      //   res.status(HttpStatus.CONFLICT).json({ message: `Not all records were deleted. Transaction rolled back. Failed attempt to delete the following records: ${updates.filter((_, index) => dbValues[index] === null).map(r => r.record_number)}` })
-      // }
+      const successfulDbValues = dbValues.filter(record => record !== null)
+      if (successfulDbValues?.length === updates.length) { 
+        await transaction.commit()
+        res.status(HttpStatus.OK).json(dbValues)
+      } else {
+        const failedDbValues = ids.filter((_, index) => dbValues[index] === null)
+        await transaction.rollback()
+        res.status(HttpStatus.CONFLICT).json({ message: `Not all records were deleted. Transaction rolled back. Failed attempt to delete the following records: ${failedDbValues}` })
+      }
     } catch (e) {
       await transaction.rollback()
       logger.error(e)

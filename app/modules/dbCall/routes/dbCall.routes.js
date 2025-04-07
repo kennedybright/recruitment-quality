@@ -52,7 +52,7 @@ models.forEach(({ name, controller, api, methods }) => {
     if (methods.includes('delete')) {
         const deleteDbMap = new Map()
         deleteDbMap.set('default', controller.deleteRecord)
-        router.delete(`${dynamicURL}/:id`, versionRouter.route(deleteDbMap))
+        router.delete(dynamicURL, versionRouter.route(deleteDbMap))
 
         // restActions.push({
         //     routePath: `${dynamicURL}/[0-9]+`,
