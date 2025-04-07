@@ -56,12 +56,13 @@ module.exports = class DBCallController {
 
       // Filter out null records (failed updates)
       const successfulDbValues = dbValues.filter(record => record !== null)
-      if (successfulDbValues.length === updates.length) { 
+      if (successfulDbValues?.length === updates.length) { 
         await transaction.commit()
         res.status(HttpStatus.OK).json(dbValues)
       } else {
+        const failedDbValues = updates.filter((_, index) => dbValues[index] === null).map(r => r.record_number)
         await transaction.rollback()
-        res.status(HttpStatus.CONFLICT).json({ message: `Not all records were updated. Transaction rolled back. Failed attempt to update the following records: ${updates.filter((_, index) => dbValues[index] === null).map(r => r.record_number)}` })
+        res.status(HttpStatus.CONFLICT).json({ message: `Not all records were updated. Transaction rolled back. Failed attempt to update the following records: ${failedDbValues}` })
       }
     } catch (e) {
       await transaction.rollback()
@@ -73,6 +74,7 @@ module.exports = class DBCallController {
   deleteRecord = async(req, res) => {
     const transaction = await this.sequelize.transaction()
     try {
+      logger.info(req.body)
       const { ids } = req.body
       const dbValues = await this.repo.delete(ids, transaction)
       await transaction.commit()

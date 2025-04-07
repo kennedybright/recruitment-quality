@@ -69,22 +69,26 @@ module.exports = class BaseRepository {
       })
       return updatedRecord ?? null
     } catch (error) {
-      throw new Error(`Error updating record with ID [${id}]: ${error.message}`)
+      throw new Error(`Error updating record [${id}]: ${error.message}`)
     }
   }
 
   /**
    * Delete a record by its primary key
-   * @param {string|number|string[]|number[]} ids - Primary key value
+   * @param {string|number} id - Primary key value
    * @param {Object} transaction - Sequelize transaction instance
    * @returns {Promise<boolean>} - True if deleted, false if not found
    */
-  async delete(ids, transaction) {
+  async delete(id, transaction) {
     try {
-      const result = await this.model.destroy({ where: { record_number: ids }, transaction: transaction })
+      const result = await this.model.destroy({ 
+        where: { record_number: id },
+        returning: true, 
+        transaction: transaction
+      })
       return result ?? null
     } catch (error) {
-      throw new Error(`Error deleting record with ID [${id}]: ${error.message}`)
+      throw new Error(`Error deleting record [${id}]: ${error.message}`)
     }
   }
 
