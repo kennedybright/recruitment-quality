@@ -78,7 +78,8 @@ module.exports = class DBCallController {
   deleteRecord = async(req, res) => {
     const transaction = await this.sequelize.transaction()
     try {
-      const data = req.body
+      const data = req.body.data
+      logger.debug("Records to delete: ", req.body, data)
       let dbValues = []
       for (const item of data) {
         const dbValue = await this.repo.delete(item.record_number)
@@ -101,6 +102,7 @@ module.exports = class DBCallController {
       // const dbValue = await this.repo.delete(id)
       // res.status(HttpStatus.OK).json(dbValue)
     } catch (e) {
+      await transaction.rollback()
       logger.error(e)
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
     }
