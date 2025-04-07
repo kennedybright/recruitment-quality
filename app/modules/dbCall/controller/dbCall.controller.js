@@ -73,7 +73,7 @@ module.exports = class DBCallController {
   deleteRecord = async(req, res) => {
     const transaction = await this.sequelize.transaction()
     try {
-      const data = req.body
+      const { data } = req.body
       console.log("Records to delete: ", req.body, data)
       let dbValues = []
       for (const item of data) {
@@ -88,10 +88,7 @@ module.exports = class DBCallController {
         res.status(HttpStatus.OK).json(dbValues)
       } else {
         await transaction.rollback()
-        console.error('Not all records were deleted. Transaction rolled back.');
-        // logger.error('Successfully deleted records:', successfulDbValues.map(r => r.record_number))
-        console.error('Failed attempt to delete the following records:', updates.filter((_, index) => dbValues[index] === null).map(r => r.record_number))
-        res.status(HttpStatus.CONFLICT).json({ message: e.message })
+        res.status(HttpStatus.CONFLICT).json({ message: `Not all records were deleted. Transaction rolled back. Failed attempt to delete the following records: ${updates.filter((_, index) => dbValues[index] === null).map(r => r.record_number)}` })
       }
     } catch (e) {
       await transaction.rollback()
