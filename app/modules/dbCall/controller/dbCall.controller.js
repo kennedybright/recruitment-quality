@@ -83,7 +83,7 @@ module.exports = class DBCallController {
 
       // Filter out null records (failed deletions)
       const successfulDbValues = dbValues.filter(record => record !== null)
-      if (successfulDbValues?.length === updates.length) { 
+      if (successfulDbValues?.length === ids.length) { 
         await transaction.commit()
         res.status(HttpStatus.OK).json(dbValues)
       } else {
