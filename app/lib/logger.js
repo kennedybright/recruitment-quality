@@ -1,7 +1,18 @@
 'use strict'
 
-const { createLogger, transports, config } = require('winston')
+const { createLogger, transports, config, format } = require('winston')
 const expressWinston = require('express-winston')
+
+/**
+ * @description filters successful health checks
+ * @returns {boolean|TransformableInfo}
+ */
+const healthCheckFilter = format((info) => {
+  const path = info.message
+  const status = info.meta?.res?.statusCode
+  if (path.includes('/service/health') && status === 200) return false // Drop log
+  return info
+})
 
 /**
  * @description creates a customizable Console winston transport
@@ -18,7 +29,11 @@ function createWinstonLogger (options = {}) {
 
   const logger = createLogger({
     transports: [transportConsole],
-    levels: config.npm.levels
+    levels: config.npm.levels,
+    format: format.combine(
+      healthCheckFilter(),
+      format.json()
+    )
   })
 
   return logger

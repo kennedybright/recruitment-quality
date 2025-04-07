@@ -79,12 +79,12 @@ spec:
             path: {{ .Values.healthcheck.path }}
             port: {{ .Values.container.port }}
           initialDelaySeconds: 10
-          periodSeconds: 5
+          periodSeconds: 15
         livenessProbe:
           httpGet:
             path: {{ .Values.healthcheck.path }}
             port: {{ .Values.container.port }}
           initialDelaySeconds: 15
-          periodSeconds: 10
+          periodSeconds: 60
       imagePullSecrets:
         - name: gitlab
