@@ -1,5 +1,4 @@
 'use strict'
-// const sequelize = require('../../../lib/db').pgInstance // initialized sequelize instance 
 
 /**
   * @class BaseRepository
@@ -33,7 +32,7 @@ module.exports = class BaseRepository {
    * @param {Object} data - Data to insert
    * @returns {Promise<Object>} - Created records
    */
-  async bulkCreate(data) {
+  async bulkCreate(data, transaction) {
     try {
       return await this.model.bulkCreate(data, {validate: true})
     } catch (error) {

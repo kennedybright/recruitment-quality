@@ -4,8 +4,6 @@ const HttpStatus = require('http-status')
 const logger = require('../../../lib/logger').loggerFactory()
 const orm = require('../../../lib/db').pgInstance
 const BaseRepository = require('../repository/BaseTable')
-// const Sequelize = require('sequelize')
-// const { sequelizeModels } = require('../../../config/assets')
 
 module.exports = class DBCallController {
   constructor(modelName) {
@@ -63,14 +61,11 @@ module.exports = class DBCallController {
         res.status(HttpStatus.OK).json(dbValues)
       } else {
         await transaction.rollback()
-        logger.error('Not all records were updated. Transaction rolled back.');
-        // logger.error('Successfully updated records:', successfulDbValues.map(r => r.record_number))
-        console.error('Failed attempt to update the following records:', updates.filter((_, index) => dbValues[index] === null).map(r => r.record_number))
-        res.status(HttpStatus.CONFLICT).json({ message: e.message })
+        res.status(HttpStatus.CONFLICT).json({ message: `Not all records were updated. Transaction rolled back. Failed attempt to update the following records: ${updates.filter((_, index) => dbValues[index] === null).map(r => r.record_number)}` })
       }
     } catch (e) {
       await transaction.rollback()
-      logger.error(e)
+      console.log(e)
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
     }
   }
@@ -78,11 +73,11 @@ module.exports = class DBCallController {
   deleteRecord = async(req, res) => {
     const transaction = await this.sequelize.transaction()
     try {
-      const data = req.body.data
-      logger.debug("Records to delete: ", req.body, data)
+      const data = req.body
+      console.log("Records to delete: ", req.body, data)
       let dbValues = []
       for (const item of data) {
-        const dbValue = await this.repo.delete(item.record_number)
+        const dbValue = await this.repo.delete(item.record_number, transaction)
         dbValues.push(dbValue)
       }
 
@@ -93,14 +88,11 @@ module.exports = class DBCallController {
         res.status(HttpStatus.OK).json(dbValues)
       } else {
         await transaction.rollback()
-        logger.error('Not all records were deleted. Transaction rolled back.');
+        console.error('Not all records were deleted. Transaction rolled back.');
         // logger.error('Successfully deleted records:', successfulDbValues.map(r => r.record_number))
         console.error('Failed attempt to delete the following records:', updates.filter((_, index) => dbValues[index] === null).map(r => r.record_number))
         res.status(HttpStatus.CONFLICT).json({ message: e.message })
       }
-      // const { id } = req.params
-      // const dbValue = await this.repo.delete(id)
-      // res.status(HttpStatus.OK).json(dbValue)
     } catch (e) {
       await transaction.rollback()
       logger.error(e)
