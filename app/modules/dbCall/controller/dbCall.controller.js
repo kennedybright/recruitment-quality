@@ -73,8 +73,8 @@ module.exports = class DBCallController {
   deleteRecord = async(req, res) => {
     const transaction = await this.sequelize.transaction()
     try {
-      const { data } = req.body
-      const dbValues = await this.repo.delete(data, transaction)
+      const { ids } = req.body
+      const dbValues = await this.repo.delete(ids, transaction)
       await transaction.commit()
       res.status(HttpStatus.OK).json(dbValues)
       // let dbValues = []

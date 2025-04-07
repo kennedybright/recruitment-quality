@@ -75,13 +75,13 @@ module.exports = class BaseRepository {
 
   /**
    * Delete a record by its primary key
-   * @param {string|number} id - Primary key value
+   * @param {string|number|string[]|number[]} ids - Primary key value
    * @param {Object} transaction - Sequelize transaction instance
    * @returns {Promise<boolean>} - True if deleted, false if not found
    */
-  async delete(id, transaction) {
+  async delete(ids, transaction) {
     try {
-      const result = await this.model.destroy({ where: { id }, transaction: transaction })
+      const result = await this.model.destroy({ where: { record_number: ids }, transaction: transaction })
       return result ?? null
     } catch (error) {
       throw new Error(`Error deleting record with ID [${id}]: ${error.message}`)
