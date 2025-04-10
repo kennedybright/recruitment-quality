@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
       allowNull: false 
     },
     sample_id: { 
-      type: DataTypes.STRING(20), 
+      type: DataTypes.BIGINT, 
       allowNull: false 
     },
     record_date: { 
@@ -205,9 +205,6 @@ module.exports = (sequelize) => {
     },
     mandatory_text: { 
       type: DataTypes.BOOLEAN 
-    },
-    cati_correction: { 
-      type: DataTypes.TEXT 
     },
     do_not_print: { 
       type: DataTypes.BOOLEAN 
