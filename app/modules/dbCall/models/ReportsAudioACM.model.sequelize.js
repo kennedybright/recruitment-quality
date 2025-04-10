@@ -11,6 +11,10 @@ module.exports = (sequelize) => {
       autoIncrement: true,
       allowNull: false 
     },
+    audio_smp: { 
+      type: DataTypes.STRING(5),
+      allowNull: false
+    },
     sample_id: { 
       type: DataTypes.STRING(20), 
       allowNull: false 
@@ -49,6 +53,10 @@ module.exports = (sequelize) => {
     },
     call_notes: { 
       type: DataTypes.TEXT
+    },
+    call_direction: { 
+      type: DataTypes.STRING(10), 
+      allowNull: false 
     },
     introduction: { 
       type: DataTypes.SMALLINT 
