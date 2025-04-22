@@ -30,10 +30,10 @@ function createWinstonLogger (options = {}) {
   const logger = createLogger({
     transports: [transportConsole],
     levels: config.npm.levels,
-    format: format.combine(
-      healthCheckFilter(),
-      format.json()
-    )
+    // format: format.combine(
+    //   healthCheckFilter(),
+    //   format.json()
+    // )
   })
 
   return logger

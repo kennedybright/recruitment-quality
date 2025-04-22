@@ -13,6 +13,7 @@ function createSequelize (DBConfig) {
     host: DBConfig.host,
     port: DBConfig.port,
     schema: DBConfig.schema,
+    // defaultTransactionNestMode: TransactionNestMode.savepoint,
     ssl: true,
     pool: {
       max: DBConfig.pool.max_connections,

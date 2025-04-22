@@ -6,7 +6,6 @@
   */
 module.exports = class BaseRepository {
   /**
-   * 
    * @constructor
    * @param {Object} modelName - Sequelize model name
    */
@@ -29,10 +28,10 @@ module.exports = class BaseRepository {
 
   /**
    * Bulk Create new records in the database
-   * @param {Object} data - Data to insert
-   * @returns {Promise<Object>} - Created records
+   * @param {Object[]} data - Data to insert
+   * @returns {Promise<Object[]>} - Created records
    */
-  async bulkCreate(data, transaction) {
+  async bulkCreate(data) {
     try {
       return await this.model.bulkCreate(data, {validate: true})
     } catch (error) {
@@ -55,17 +54,15 @@ module.exports = class BaseRepository {
 
   /**
    * Update a record by its primary key
-   * @param {string|number} id - Primary key value
    * @param {Object} data - Data to update
-   * @param {Object} transaction - Sequelize transaction instance
    * @returns {Promise<Object|null>} - Updated record or null if not found
    */
-  async update(id, data, transaction) {
+  async update(data) {
     try {
+      const primaryKeyCol = this.model.primaryKeyAttribute // Get the primary key attribute name
       const updatedRecord = await this.model.update(data, { 
-        where: { record_number: id },
-        returning: true,
-        transaction: transaction
+        where: { [primaryKeyCol]: data[primaryKeyCol] },
+        returning: true
       })
       return updatedRecord ?? null
     } catch (error) {
@@ -74,21 +71,56 @@ module.exports = class BaseRepository {
   }
 
   /**
+   * Bulk Update records by its primary key
+   * @param {Object[]} data - Data to update
+   * @returns {Promise<Object[]>} - Updated records
+   */
+  async bulkUpdate(data) {
+    try {
+      let dbValues = []
+      for (const item of data) {
+        const dbValue = await update(item)
+        dbValues.push(dbValue)
+      }
+      return dbValues
+    } catch (error) {
+      throw new Error(`Error bulk updating records: ${error.message}`)
+    }
+  }
+
+  /**
    * Delete a record by its primary key
    * @param {string|number} id - Primary key value
-   * @param {Object} transaction - Sequelize transaction instance
    * @returns {Promise<boolean>} - True if deleted, false if not found
    */
-  async delete(id, transaction) {
+  async delete(id) {
     try {
+      const primaryKeyCol = this.model.primaryKeyAttribute // Get the primary key attribute name
       const result = await this.model.destroy({ 
-        where: { record_number: id },
-        returning: true, 
-        transaction: transaction
+        where: { [primaryKeyCol]: id },
+        returning: true
       })
       return result ?? null
     } catch (error) {
       throw new Error(`Error deleting record [${id}]: ${error.message}`)
+    }
+  }
+
+  /**
+   * Bulk Delete records by its primary key
+   * @param {any[]} ids - Primary key values to delete
+   * @returns {Promise<boolean>} - True if deleted, false if not found
+   */
+  async bulkDelete(ids) {
+    try {
+      const primaryKeyCol = this.model.primaryKeyAttribute // Get the primary key attribute name
+      const result = await this.model.destroy({ 
+        where: { [primaryKeyCol]: ids },
+        returning: true
+      })
+      return result ?? null
+    } catch (error) {
+      throw new Error(`Error bulk deleting records: ${error.message}`)
     }
   }
 
