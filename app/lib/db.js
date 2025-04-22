@@ -1,5 +1,6 @@
 'use strict'
 
+require('pg').defaults.parseInt8 = true
 const path = require('path')
 const Sequelize = require('sequelize')
 const config = require('../config')
