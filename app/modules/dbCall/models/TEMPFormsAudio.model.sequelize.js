@@ -3,8 +3,8 @@
 const { Model, DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-  class TEMPFormAudio extends Model {} 
-  TEMPFormAudio.init({
+  class TEMPFormsAudio extends Model {} 
+  TEMPFormsAudio.init({
     record_number: { 
       type: DataTypes.BIGINT, 
       primaryKey: true,
@@ -60,7 +60,8 @@ module.exports = (sequelize) => {
     },
     department: { 
       type: DataTypes.STRING(2), 
-      allowNull: false 
+      allowNull: false,
+      defaultValue: "QR"
     },
     introduction: { 
       type: DataTypes.SMALLINT 
@@ -242,8 +243,8 @@ module.exports = (sequelize) => {
     updatedAt: 'updated_date'
   })
   
-  TEMPFormAudio.api = ['forms', 'temp', 'audio']
-  TEMPFormAudio.crud = ['create', 'update', 'findById', 'findAll', 'delete']
+  TEMPFormsAudio.api = ['forms', 'temp', 'audio']
+  TEMPFormsAudio.crud = ['create', 'update', 'findById', 'findAll', 'delete']
   
-  return TEMPFormAudio
+  return TEMPFormsAudio
 }

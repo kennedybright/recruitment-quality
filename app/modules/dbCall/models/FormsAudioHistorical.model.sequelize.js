@@ -61,7 +61,8 @@ module.exports = (sequelize) => {
     },
     department: { 
       type: DataTypes.STRING(2), 
-      allowNull: false 
+      allowNull: false,
+      defaultValue: "QR"
     },
     introduction: { 
       type: DataTypes.SMALLINT 
