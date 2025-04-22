@@ -223,16 +223,20 @@ module.exports = (sequelize) => {
       allowNull: false 
     },
     updated_date: { 
-      type: DataTypes.DATE 
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: null
     },
     created_by: { 
       type: DataTypes.STRING(10), 
       allowNull: false 
     },
     updated_by: { 
-      type: DataTypes.STRING(10) 
+      type: DataTypes.STRING(10),
+      allowNull: true,
+      defaultValue: null
     }
-  }, 
+  },
   {
     sequelize,
     modelName: 'TEMPFormsAudio',
