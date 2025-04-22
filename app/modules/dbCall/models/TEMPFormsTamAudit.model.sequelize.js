@@ -2,8 +2,8 @@
 const { Model, DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-  class FormsTamAudit extends Model {} 
-  FormsTamAudit.init({
+  class TEMPFormsTamAudit extends Model {} 
+  TEMPFormsTamAudit.init({
     audit_transaction_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
@@ -12,7 +12,6 @@ module.exports = (sequelize) => {
     },
     record_number: { 
       type: DataTypes.BIGINT,
-      unique: true,
       allowNull: false 
     },
     app_id: { 
@@ -25,11 +24,11 @@ module.exports = (sequelize) => {
     },
     field_id: { 
       type: DataTypes.INTEGER, 
-      allowNull: false 
+      allowNull: true 
     },
     field_name: { 
       type: DataTypes.STRING(255), 
-      allowNull: false 
+      allowNull: true 
     },
     old_value: { 
       type: DataTypes.TEXT, 
@@ -40,7 +39,7 @@ module.exports = (sequelize) => {
       allowNull: true
     },
     transaction_date: { 
-      type: DataTypes.DATEONLY, 
+      type: DataTypes.DATE, 
       allowNull: false 
     },
     created_by: { 
@@ -50,16 +49,16 @@ module.exports = (sequelize) => {
   }, 
   {
     sequelize,
-    modelName: 'FormsTamAudit',
-    tableName: 'us_qa_forms_tam_audit',
+    modelName: 'TEMPFormsTamAudit',
+    tableName: 'us_qa_forms_tam_audit_temp',
     freezeTableName: true,
     timestamps: true,
     createdAt: 'transaction_date',
     updatedAt: false
   })
   
-  FormsTamAudit.api = ['forms', 'audio', 'audit']
-  FormsTamAudit.crud = ['create', 'findById', 'findAll']
+  TEMPFormsTamAudit.api = ['forms', 'temp', 'audio', 'audit']
+  TEMPFormsTamAudit.crud = ['create', 'findById', 'findAll']
   
-  return FormsTamAudit
+  return TEMPFormsTamAudit
 }

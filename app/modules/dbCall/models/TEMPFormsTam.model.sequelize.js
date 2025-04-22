@@ -234,6 +234,10 @@ module.exports = (sequelize) => {
     updatedAt: 'updated_date'
   })
 
+  // temporarily disable updatedAt on creation
+  TEMPFormsTam.beforeCreate((instance, options) => { instance.updatedAt = null })
+  TEMPFormsTam.beforeBulkCreate((instance, options) => { instance.updatedAt = null })
+
   TEMPFormsTam.api = ['forms', 'temp', 'tam']
   TEMPFormsTam.crud = ['create', 'update', 'findById', 'findAll', 'delete']
   
