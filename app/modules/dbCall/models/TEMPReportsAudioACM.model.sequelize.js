@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     sample_id: { 
-      type: DataTypes.STRING(20), 
+      type: DataTypes.BIGINT, 
       allowNull: false 
     },
     frame_code_id: { 
