@@ -46,7 +46,7 @@ module.exports = class DBCallController {
   
   updateRecord = async(req, res) => {
     try {
-      const updates = req.body
+      const data = req.body
       const result = await this.sequelize.transaction(async () => {
         if (data.length === 1) {
           await this.repo.update(updates[0]) // single update

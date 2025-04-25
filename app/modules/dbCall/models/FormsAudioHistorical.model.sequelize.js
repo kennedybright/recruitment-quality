@@ -224,14 +224,16 @@ module.exports = (sequelize) => {
       allowNull: false 
     },
     updated_date: { 
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      defaultValue: null
     },
     created_by: { 
       type: DataTypes.STRING(10), 
       allowNull: false 
     },
     updated_by: { 
-      type: DataTypes.STRING(10)
+      type: DataTypes.STRING(10),
+      defaultValue: null
     }
   }, 
   {
@@ -241,12 +243,8 @@ module.exports = (sequelize) => {
     freezeTableName: true,
     timestamps: true,
     createdAt: 'created_date',
-    updatedAt: 'updated_date'
+    updatedAt: false
   })
-  
-  // temporarily disable updatedAt on creation
-  FormsAudioHistorical.beforeCreate((instance, options) => { instance.updatedAt = null })
-  FormsAudioHistorical.beforeBulkCreate((instance, options) => { instance.updatedAt = null })
 
   FormsAudioHistorical.api = ['forms', 'audio', 'historical']
   FormsAudioHistorical.crud = ['create', 'update', 'findById', 'findAll', 'delete']

@@ -36,12 +36,11 @@ const sendReport = async (emailTo, pdfBuffer, reportName, pdfFilename, riID, qrI
 
     const messageHTML = `<p>Dear Contact Center Quality Ops Team,</p>
     
-    <p>Please find below the daily monitoring report for the following RI: <strong>${riID}</strong>, conducted by the QR: <strong>${qrID}</strong>.</p>
+    <p>Please find below the daily monitoring report for the following RI: <strong>${riID}</strong>.</p>
 
     <h3><strong>${reportName} Details:</strong></h3>
       <ul>
         <li><strong>Report Date: </strong>${reportDate}</li>
-        <li><strong>Quality Represenative (QR): </strong>${qrID}</li>
         <li><strong>Research Interviewer (RI): </strong>${riID}</li>
       </ul>
     `

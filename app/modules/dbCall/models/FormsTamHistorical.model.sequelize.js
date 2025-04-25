@@ -214,14 +214,16 @@ module.exports = (sequelize) => {
       allowNull: false 
     },
     updated_date: { 
-      type: DataTypes.DATEONLY 
+      type: DataTypes.DATEONLY,
+      defaultValue: null
     },
     created_by: { 
       type: DataTypes.STRING(10), 
       allowNull: false 
     },
     updated_by: { 
-      type: DataTypes.STRING(10) 
+      type: DataTypes.STRING(10),
+      defaultValue: null
     }
   }, 
   {
@@ -231,12 +233,8 @@ module.exports = (sequelize) => {
     freezeTableName: true,
     timestamps: true,
     createdAt: 'created_date',
-    updatedAt: 'updated_date'
+    updatedAt: false
   })
-  
-  // temporarily disable updatedAt on creation
-  FormsTamHistorical.beforeCreate((instance, options) => { instance.updatedAt = null })
-  FormsTamHistorical.beforeBulkCreate((instance, options) => { instance.updatedAt = null })
 
   FormsTamHistorical.api = ['forms', 'tam', 'historical']
   FormsTamHistorical.crud = ['create', 'update', 'findById', 'findAll', 'delete']

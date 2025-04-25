@@ -223,7 +223,8 @@ module.exports = (sequelize) => {
       allowNull: false 
     },
     updated_date: { 
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      defaultValue: null
     },
     created_by: { 
       type: DataTypes.STRING(10), 
@@ -231,6 +232,7 @@ module.exports = (sequelize) => {
     },
     updated_by: { 
       type: DataTypes.STRING(10),
+      defaultValue: null
     }
   },
   {
@@ -240,12 +242,8 @@ module.exports = (sequelize) => {
     freezeTableName: true,
     timestamps: true,
     createdAt: 'created_date',
-    updatedAt: 'updated_date'
+    updatedAt: false
   })
-
-  // temporarily disable updatedAt on creation
-  TEMPFormsAudio.beforeCreate((instance, options) => { instance.updatedAt = null })
-  TEMPFormsAudio.beforeBulkCreate((instance, options) => { instance.updatedAt = null })
   
   TEMPFormsAudio.api = ['forms', 'temp', 'audio']
   TEMPFormsAudio.crud = ['create', 'update', 'findById', 'findAll', 'delete']
