@@ -49,9 +49,9 @@ module.exports = class DBCallController {
       const data = req.body
       const result = await this.sequelize.transaction(async () => {
         if (data.length === 1) {
-          await this.repo.update(updates[0]) // single update
+          await this.repo.update(data[0]) // single update
         } else {
-          await this.repo.bulkUpdate(updates) // bulk update
+          await this.repo.bulkUpdate(data) // bulk update
         }
       })// .filter(record => record !== null) // Filter out null records (failed updates)
       
