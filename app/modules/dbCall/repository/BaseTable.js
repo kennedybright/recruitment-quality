@@ -118,21 +118,21 @@ module.exports = class BaseRepository {
   async bulkDelete(ids) {
     try {
       const primaryKeyCol = this.model.primaryKeyAttribute // Get the primary key attribute name
-      let dbValues = []
-      for (const id of ids) {
-        console.log("id to be deleted: ", id)
-        const dbValue = await this.model.destroy({ 
-          where: { [primaryKeyCol]: id },
-          returning: true
-        })
-        dbValues.push(dbValue)
-      }
-      return dbValues
-      // const result = await this.model.destroy({ 
-      //   where: { [primaryKeyCol]: ids },
-      //   returning: true
-      // })
-      // return result ?? null
+      // let dbValues = []
+      // for (const id of ids) {
+      //   console.log("id to be deleted: ", id)
+      //   const dbValue = await this.model.destroy({ 
+      //     where: { [primaryKeyCol]: id },
+      //     returning: true
+      //   })
+      //   dbValues.push(dbValue)
+      // }
+      // return dbValues
+      const result = await this.model.destroy({ 
+        where: { [primaryKeyCol]: ids },
+        returning: true
+      })
+      return result ?? null
     } catch (error) {
       throw new Error(`Error bulk deleting records: ${error.message}`)
     }
