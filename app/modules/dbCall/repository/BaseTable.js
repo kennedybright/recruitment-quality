@@ -79,7 +79,10 @@ module.exports = class BaseRepository {
     try {
       let dbValues = []
       for (const item of data) {
-        const dbValue = await update(item)
+        const dbValue = await this.model.update(item, { 
+          where: { [primaryKeyCol]: item[primaryKeyCol] },
+          returning: true
+        })
         dbValues.push(dbValue)
       }
       return dbValues

@@ -53,7 +53,7 @@ module.exports = class DBCallController {
         } else {
           await this.repo.bulkUpdate(data) // bulk update
         }
-      })// .filter(record => record !== null) // Filter out null records (failed updates)
+      })
       
       res.status(HttpStatus.OK).json(result)
     } catch (e) {
@@ -71,22 +71,10 @@ module.exports = class DBCallController {
         } else {
           await this.repo.bulkDelete(ids) // bulk delete
         }
-      })// .filter(record => record !== null) // Filter out null records (failed updates)
+      })
       
       res.status(HttpStatus.OK).json(result)
-
-      // Filter out null records (failed deletions)
-      // const successfulDbValues = dbValues.filter(record => record !== null)
-      // if (successfulDbValues?.length === ids.length) { 
-      //   await transaction.commit()
-      //   res.status(HttpStatus.OK).json(dbValues)
-      // } else {
-      //   const failedDbValues = ids.filter((_, index) => dbValues[index] === null)
-      //   await transaction.rollback()
-      //   res.status(HttpStatus.CONFLICT).json({ message: `Not all records were deleted. Transaction rolled back. Failed attempt to delete the following records: ${failedDbValues}` })
-      // }
     } catch (e) {
-      // await transaction.rollback()
       console.error(e)
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
     }
