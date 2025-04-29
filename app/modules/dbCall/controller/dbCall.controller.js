@@ -64,7 +64,7 @@ module.exports = class DBCallController {
   
   deleteRecord = async(req, res) => {
     try {
-      const ids = req.body
+      const { ids } = req.body
       console.log("delete ids", ids, typeof ids)
       const result = await this.sequelize.transaction(async () => {
         if (ids.length === 1) {
