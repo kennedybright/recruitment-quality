@@ -147,7 +147,7 @@ module.exports = class BaseRepository {
           ...(after_date 
             ? { record_date: { [Op.gte]: after_date } }
             : record_date
-            ? record_date
+            ? { record_date }
             : {}
           )
         },
