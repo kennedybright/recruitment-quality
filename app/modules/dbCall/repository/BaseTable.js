@@ -1,5 +1,7 @@
 'use strict'
 
+const { Op } = require("sequelize")
+
 /**
   * @class BaseRepository
   * @description base repository for all tables
@@ -137,7 +139,10 @@ module.exports = class BaseRepository {
   async findAll(conditions = {}, attributes = null) {
     try {
       return await this.model.findAll({
-        where: conditions,
+        where: {
+          record_date: conditions.after_date ? { [Op.gt]: new Date(conditions.after_date) } : conditions.record_date,
+          ...conditions
+        },
         attributes: attributes || undefined,
       })
     } catch (error) {
