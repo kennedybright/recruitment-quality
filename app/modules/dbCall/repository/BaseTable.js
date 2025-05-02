@@ -138,9 +138,10 @@ module.exports = class BaseRepository {
    */
   async findAll(conditions = {}, attributes = null) {
     try {
+      console.log("conditions", conditions)
       return await this.model.findAll({
         where: {
-          record_date: conditions.after_date ? { [Op.gt]: new Date(conditions.after_date) } : conditions.record_date,
+          record_date: conditions.after_date ? { [Op.gte]: new Date(conditions.after_date) } : conditions.record_date ?? undefined,
           ...conditions
         },
         attributes: attributes || undefined,
