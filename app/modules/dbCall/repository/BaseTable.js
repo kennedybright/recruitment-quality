@@ -35,8 +35,10 @@ module.exports = class BaseRepository {
    */
   async bulkCreate(data) {
     try {
+      console.log("data: ", data)
       return await this.model.bulkCreate(data, {validate: true})
     } catch (error) {
+      console.log("error bulk creating: ", error)
       throw new Error(`Error bulk creating records: ${error}`)
     }
   }
