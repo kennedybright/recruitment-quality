@@ -24,6 +24,7 @@ module.exports = class BaseRepository {
     try {
       return await this.model.create(data)
     } catch (error) {
+      console.log("Error bulk creating: ", error)
       throw new Error(`Error creating record: ${error}`)
     }
   }
@@ -35,10 +36,9 @@ module.exports = class BaseRepository {
    */
   async bulkCreate(data) {
     try {
-      console.log("data: ", data)
       return await this.model.bulkCreate(data, {validate: true})
     } catch (error) {
-      console.log("error bulk creating: ", error)
+      console.log("Error bulk creating: ", error)
       throw new Error(`Error bulk creating records: ${error}`)
     }
   }
@@ -52,6 +52,7 @@ module.exports = class BaseRepository {
     try {
       return await this.model.findByPk(id)
     } catch (error) {
+      console.log("Error finding record by ID: ", error)
       throw new Error(`Error finding record with ID [${id}]: ${error.message}`)
     }
   }
@@ -70,6 +71,7 @@ module.exports = class BaseRepository {
       })
       return updatedRecord ?? null
     } catch (error) {
+      console.log("Error updating: ", error)
       throw new Error(`Error updating record [${id}]: ${error.message}`)
     }
   }
@@ -92,6 +94,7 @@ module.exports = class BaseRepository {
       }
       return dbValues
     } catch (error) {
+      console.log("Error bulk updating: ", error)
       throw new Error(`Error bulk updating records: ${error.message}`)
     }
   }
@@ -110,6 +113,7 @@ module.exports = class BaseRepository {
       })
       return result ?? null
     } catch (error) {
+      console.log("Error deleting: ", error)
       throw new Error(`Error deleting record [${id}]: ${error.message}`)
     }
   }
@@ -128,6 +132,7 @@ module.exports = class BaseRepository {
       })
       return result ?? null
     } catch (error) {
+      console.log("Error bulk deleting: ", error)
       throw new Error(`Error bulk deleting records: ${error.message}`)
     }
   }
@@ -156,6 +161,7 @@ module.exports = class BaseRepository {
         attributes: attributes || undefined,
       })
     } catch (error) {
+      console.log("Error finding all records: ", error)
       throw new Error(`Error finding records: ${error.message}`)
     }
   }
@@ -170,6 +176,7 @@ module.exports = class BaseRepository {
       const record = await this.findById(id)
       return !!record
     } catch (error) {
+      console.log("Error checking record existence: ", error)
       throw new Error(`Error checking existence of record with ID [${id}]: ${error.message}`)
     }
   }

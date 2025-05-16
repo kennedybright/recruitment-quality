@@ -29,8 +29,6 @@ module.exports = class DBCallController {
       }
     } catch (e) {
       console.error(e)
-      console.log("error creating records: ", e.message)
-      console.log("error creating records: ", e)
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
     }
   }
