@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
   {
     sequelize,
     modelName: 'QaAuditTracking',
-    tableName: 'us_qa_audittracking',
+    tableName: 'qa_audio_audittracking',
     freezeTableName: true,
     timestamps: false
   })

@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
   {
     sequelize,
     modelName: 'QaMcaOutcomes',
-    tableName: 'us_qa_mca_outcomes',
+    tableName: 'qa_mca_outcomes',
     freezeTableName: true,
     timestamps: false
   })

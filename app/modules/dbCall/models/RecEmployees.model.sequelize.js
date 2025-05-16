@@ -47,12 +47,21 @@ module.exports = (sequelize) => {
     },
     shift_id: { 
       type: DataTypes.STRING(2) 
+    },
+    audio_ivr_ids: {
+      type: DataTypes.STRING
+    },
+    scarborough_ivr_ids: {
+      type: DataTypes.STRING
+    },
+    video_ivr_ids: {
+      type: DataTypes.STRING
     }
   },
   {
     sequelize,
     modelName: 'RecEmployees',
-    tableName: 'us_rec_employees',
+    tableName: 'rec_employees',
     freezeTableName: true,
     timestamps: false
   })

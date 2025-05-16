@@ -238,7 +238,7 @@ module.exports = (sequelize) => {
   {
     sequelize,
     modelName: 'TEMPFormsAudio',
-    tableName: 'us_qa_forms_audio_historical_temp',
+    tableName: 'qa_forms_audio_historical_temp',
     freezeTableName: true,
     timestamps: true,
     createdAt: 'created_date',

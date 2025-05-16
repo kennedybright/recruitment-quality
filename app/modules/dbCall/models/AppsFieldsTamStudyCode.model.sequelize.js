@@ -2,15 +2,10 @@
 const { Model, DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-  class QaFieldsAudioCT extends Model {} 
-  QaFieldsAudioCT.init({
+  class QaFieldsTamSC extends Model {} 
+  QaFieldsTamSC.init({
     field_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    call_type_id: {
-      type: DataTypes.STRING(5),
       allowNull: false,
       primaryKey: true
     },
@@ -18,29 +13,31 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    call_type: {
+    study_code_id: {
+      type: DataTypes.STRING(5),
+      allowNull: false,
+      primaryKey: true
+    },
+    study_code: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    audio_smp: {
-      type: DataTypes.STRING
     },
     disabled: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: false
-    },
+    }
   },
   {
     sequelize,
-    modelName: 'QaFieldsAudioCT',
-    tableName: 'qa_apps_fields_audio_calltype',
+    modelName: 'QaFieldsTamSC',
+    tableName: 'qa_apps_fields_tam_studycode',
     freezeTableName: true,
     timestamps: false
   })
 
-  QaFieldsAudioCT.api = ['forms', 'fields', 'audio', 'calltypes']
-  QaFieldsAudioCT.crud = ['findById', 'findAll']
+  QaFieldsTamSC.api = ['forms', 'fields', 'tam', 'studycodes']
+  QaFieldsTamSC.crud = ['findById', 'findAll']
 
-  return QaFieldsAudioCT
+  return QaFieldsTamSC
 }

@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(10), 
       allowNull: false 
     },
-    cati_id: { 
+    interview_id: { 
       type: DataTypes.STRING, 
       allowNull: false 
     },
@@ -51,10 +51,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(10), 
       allowNull: false 
     },
-    frame_code_id: { 
-      type: DataTypes.STRING(10), 
-      allowNull: false 
-    },
     call_time: { 
       type: DataTypes.TIME, 
       allowNull: false 
@@ -63,14 +59,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(10), 
       allowNull: false 
     },
-    call_duration_approx: { 
+    call_duration: { 
       type: DataTypes.BIGINT, 
       allowNull: false 
-    },
-    audit_tracking: { 
-      type: DataTypes.BOOLEAN, 
-      allowNull: false, 
-      defaultValue: false 
     },
     ipv_daypart: { 
       type: DataTypes.STRING(3), 
@@ -143,71 +134,14 @@ module.exports = (sequelize) => {
     compliance_b11: { 
       type: DataTypes.STRING(20) 
     },
-    delivery_skills_a1_comments: { 
+    call_notes_a: { 
       type: DataTypes.TEXT 
     },
-    delivery_skills_a2_comments: { 
+    call_notes_b: {
       type: DataTypes.TEXT 
     },
-    delivery_skills_a3_comments: { 
+    call_notes_misc: { 
       type: DataTypes.TEXT 
-    },
-    delivery_skills_a4_comments: { 
-      type: DataTypes.TEXT 
-    },
-    delivery_skills_a5_comments: { 
-      type: DataTypes.TEXT 
-    },
-    delivery_skills_a6_comments: { 
-      type: DataTypes.TEXT 
-    },
-    delivery_skills_a7_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b1_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b2_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b3_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b4_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b5_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b6_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b7_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b8_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b9_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b10_comments: { 
-      type: DataTypes.TEXT 
-    },
-    compliance_b11_comments: { 
-      type: DataTypes.TEXT 
-    },
-    delivery_skills_score: { 
-      type: DataTypes.INTEGER, 
-      allowNull: false 
-    },
-    compliance_score: { 
-      type: DataTypes.INTEGER, 
-      allowNull: false 
-    },
-    total_score: { 
-      type: DataTypes.INTEGER, 
-      allowNull: false 
     },
     created_date: { 
       type: DataTypes.DATEONLY, 
@@ -229,7 +163,7 @@ module.exports = (sequelize) => {
   {
     sequelize,
     modelName: 'TEMPFormsTam',
-    tableName: 'us_qa_forms_tam_historical_temp',
+    tableName: 'qa_forms_tam_historical_temp',
     freezeTableName: true,
     timestamps: true,
     createdAt: 'created_date',

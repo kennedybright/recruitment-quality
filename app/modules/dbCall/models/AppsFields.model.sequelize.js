@@ -36,12 +36,16 @@ module.exports = (sequelize) => {
     default_value: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    field_label: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   },
   {
     sequelize,
     modelName: 'QaFormsFields',
-    tableName: 'us_qa_apps_fields',
+    tableName: 'qa_apps_fields',
     freezeTableName: true,
     timestamps: false
   })

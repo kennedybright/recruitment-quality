@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
   {
     sequelize,
     modelName: 'RecSiteNames',
-    tableName: 'us_rec_sitenames',
+    tableName: 'rec_sitenames',
     freezeTableName: true,
     timestamps: false
   })

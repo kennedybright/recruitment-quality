@@ -39,7 +39,7 @@ module.exports = (sequelize) => {
   {
     sequelize,
     modelName: 'QaScoringCodes',
-    tableName: 'us_qa_apps_scoring_codes',
+    tableName: 'qa_apps_scoring_codes',
     freezeTableName: true,
     timestamps: false
   })

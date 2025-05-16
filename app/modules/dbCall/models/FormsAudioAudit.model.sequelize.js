@@ -50,7 +50,7 @@ module.exports = (sequelize) => {
   {
     sequelize,
     modelName: 'FormsAudioAudit',
-    tableName: 'us_qa_forms_audio_audit',
+    tableName: 'qa_forms_audio_audit',
     freezeTableName: true,
     timestamps: true,
     createdAt: 'transaction_date',
