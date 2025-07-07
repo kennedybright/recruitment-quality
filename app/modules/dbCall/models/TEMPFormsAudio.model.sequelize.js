@@ -55,7 +55,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(10) 
     },
     audio_smp: { 
-      type: DataTypes.STRING(5),
+      type: DataTypes.STRING(10),
       allowNull: false
     },
     department: { 

@@ -1,31 +1,39 @@
 'use strict'
+
 const { Model, DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-  class FormsAudioHistorical extends Model {} 
-  FormsAudioHistorical.init({
-    record_number: { 
+  class TEMPFormsAIAudio extends Model {} 
+  TEMPFormsAIAudio.init({
+    ai_record_number: { 
       type: DataTypes.BIGINT, 
       primaryKey: true,
       unique: true,
       autoIncrement: true,
       allowNull: false 
     },
+    record_number: { 
+      type: DataTypes.BIGINT,
+      allowNull: true 
+    },
     app_id: { 
       type: DataTypes.INTEGER, 
       allowNull: false 
     },
+    model_version: { 
+      type: DataTypes.STRING(5), 
+      allowNull: false 
+    },
     qr_id: { 
       type: DataTypes.STRING(10), 
-      allowNull: false 
+      allowNull: true 
     },
     ri_id: { 
       type: DataTypes.STRING(10), 
       allowNull: false 
     },
     sample_id: { 
-      type: DataTypes.BIGINT, 
-      allowNull: false 
+      type: DataTypes.BIGINT 
     },
     record_date: { 
       type: DataTypes.DATEONLY, 
@@ -41,19 +49,18 @@ module.exports = (sequelize) => {
     },
     site_name_id: { 
       type: DataTypes.STRING(10), 
-      allowNull: false 
+      allowNull: true 
     },
     call_type_id: { 
       type: DataTypes.STRING(5), 
-      allowNull: false 
+      allowNull: true 
     },
     frame_code_id: { 
       type: DataTypes.STRING(10), 
-      allowNull: false 
+      allowNull: true 
     },
     call_direction: { 
-      type: DataTypes.STRING(10), 
-      allowNull: false 
+      type: DataTypes.STRING(10) 
     },
     audio_smp: { 
       type: DataTypes.STRING(10),
@@ -65,120 +72,120 @@ module.exports = (sequelize) => {
       defaultValue: "QR"
     },
     introduction: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     question_order: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     foot_in_the_door: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     eligibility: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     reminders: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     incentive: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     hh_size: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     home_address: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     mailing_address: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     cooperation: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     media: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     media_probes: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     age_gender_enumeration: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     race: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     ethnicity: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     language_probes: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     employment: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     education: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     grid: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     internet: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     num_of_tvs: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     income: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     commitment: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     name_collection: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     explanation: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     legal_statements: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     email: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     primary_residence: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     tv_programming: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     streaming_vmvpd: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     privacy: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     install_scheduling: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     product: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     closing: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     comments: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB
     },
     other: { 
-      type: DataTypes.SMALLINT, 
-      defaultValue: 1 
+      type:DataTypes.JSONB, 
+      // defaultValue: 1 
     },
     coding_time: { 
-      type: DataTypes.SMALLINT, 
-      defaultValue: 1 
+      type:DataTypes.JSONB, 
+      // defaultValue: 1 
     },
     overcoming_objections: { 
-      type: DataTypes.SMALLINT 
+      type:DataTypes.JSONB 
     },
     disposition: { 
       type: DataTypes.STRING(20) 
@@ -190,7 +197,7 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT 
     },
     call_notes: { 
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT 
     },
     improper_intro: { 
       type: DataTypes.BOOLEAN 
@@ -220,7 +227,7 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN 
     },
     created_date: { 
-      type: DataTypes.DATE,
+      type: DataTypes.DATE, 
       allowNull: false 
     },
     updated_date: { 
@@ -228,26 +235,25 @@ module.exports = (sequelize) => {
       defaultValue: null
     },
     created_by: { 
-      type: DataTypes.STRING(10), 
-      allowNull: false 
+      type: DataTypes.STRING(10)
     },
     updated_by: { 
       type: DataTypes.STRING(10),
       defaultValue: null
     }
-  }, 
+  },
   {
     sequelize,
-    modelName: 'FormsAudioHistorical',
-    tableName: 'qa_forms_audio_historical',
+    modelName: 'TEMPFormsAIAudio',
+    tableName: 'qa_forms_ai_audio_historical_temp',
     freezeTableName: true,
     timestamps: true,
     createdAt: 'created_date',
     updatedAt: false
   })
-
-  FormsAudioHistorical.api = ['forms', 'audio', 'historical']
-  FormsAudioHistorical.crud = ['create', 'update', 'findById', 'findAll', 'delete']
   
-  return FormsAudioHistorical
+  TEMPFormsAIAudio.api = ['forms', 'temp', 'ai', 'audio']
+  TEMPFormsAIAudio.crud = ['create', 'update', 'findById', 'findAll', 'delete']
+  
+  return TEMPFormsAIAudio
 }

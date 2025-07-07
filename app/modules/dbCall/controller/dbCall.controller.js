@@ -18,25 +18,24 @@ module.exports = class DBCallController {
   createRecord = async(req, res) => {
     try {
       const data = req.body
-      if (!Array.isArray(data)) {
-        // single create
-        const result = await this.repo.create(data)
-        res.status(HttpStatus.OK).json(result)
-      } else {
-        // bulk create
-        const result = await this.repo.bulkCreate(data)
-        res.status(HttpStatus.OK).json(result)
-      }
-    } catch (e) {
-      console.error(e)
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
-    }
-  }
-  
-  getRecordById = async(req, res) => {
-    try {
-      const { id } = req.params
-      const result = await this.repo.findById(id)
+      // if (!Array.isArray(data)) {
+      //   // single create
+      //   const result = await this.repo.create(data)
+      //   res.status(HttpStatus.OK).json(result)
+      // } else {
+      //   // bulk create
+      //   const result = await this.repo.bulkCreate(data)
+      //   res.status(HttpStatus.OK).json(result)
+      // }
+
+      const result = await this.sequelize.transaction(async () => {
+        if (!Array.isArray(data)) {
+          await this.repo.create(data) // single create
+        } else {
+          await this.repo.bulkCreate(data) // bulk create
+        }
+      })
+
       res.status(HttpStatus.OK).json(result)
     } catch (e) {
       console.error(e)
@@ -73,6 +72,17 @@ module.exports = class DBCallController {
         }
       })
       
+      res.status(HttpStatus.OK).json(result)
+    } catch (e) {
+      console.error(e)
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: e.message })
+    }
+  }
+
+  getRecordById = async(req, res) => {
+    try {
+      const { id } = req.params
+      const result = await this.repo.findById(id)
       res.status(HttpStatus.OK).json(result)
     } catch (e) {
       console.error(e)

@@ -145,13 +145,15 @@ module.exports = class BaseRepository {
    */
   async findAll(conditions = {}, attributes = null) {
     try {
-      const { record_date, after_date, ...otherConditions } = conditions
+      const { record_date, after_date, before_date, ...otherConditions } = conditions
       return await this.model.findAll({
         where: {
           ...otherConditions,
 
-          // custom date query (either equal OR greater than/equal)
-          ...(after_date 
+          // custom date query (less than/equal, equal, OR greater than/equal)
+          ...( before_date 
+            ? { record_date: { [Op.lt]: before_date } }
+            : after_date 
             ? { record_date: { [Op.gte]: after_date } }
             : record_date
             ? { record_date }
