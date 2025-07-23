@@ -4,10 +4,14 @@ const { Model, DataTypes } = require('sequelize')
 module.exports = (sequelize) => {
   class RecEmployees extends Model {} 
   RecEmployees.init({
-    ri_id: { 
-      type: DataTypes.STRING(10), 
+    sap_emp_number: { 
+      type: DataTypes.STRING, 
       primaryKey: true, 
       allowNull: false 
+    },
+    ri_id: { 
+      type: DataTypes.STRING(10), 
+      allowNull: true 
     },
     first_name: { 
       type: DataTypes.STRING(255) 
