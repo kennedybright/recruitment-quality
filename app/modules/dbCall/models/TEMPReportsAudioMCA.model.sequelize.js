@@ -2,8 +2,8 @@
 const { Model, DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-  class ReportsAudioMCABreakdown extends Model {} 
-  ReportsAudioMCABreakdown.init({
+  class TEMPReportsAudioMCABreakdown extends Model {} 
+  TEMPReportsAudioMCABreakdown.init({
     record_number: { 
       type: DataTypes.BIGINT, 
       primaryKey: true,
@@ -35,6 +35,17 @@ module.exports = (sequelize) => {
       type: DataTypes.TIME, 
       allowNull: false 
     },
+    call_type_id: { 
+      type: DataTypes.STRING(5), 
+      allowNull: false 
+    },
+    frame_code_id: { 
+      type: DataTypes.STRING(10), 
+      allowNull: false 
+    },
+    call_direction: { 
+      type: DataTypes.STRING(10) 
+    },
     ri_shift: { 
       type: DataTypes.STRING(2), 
       allowNull: false 
@@ -51,14 +62,14 @@ module.exports = (sequelize) => {
   }, 
   {
     sequelize,
-    modelName: 'ReportsAudioMCABreakdown',
-    tableName: 'qa_reports_audio_mca_breakdown',
+    modelName: 'TEMPReportsAudioMCABreakdown',
+    tableName: 'qa_reports_audio_mca_breakdown_temp',
     freezeTableName: true,
     timestamps: false
   })
   
-  ReportsAudioMCABreakdown.api = ['reports', 'audio', 'mca']
-  ReportsAudioMCABreakdown.crud = ['findById', 'findAll']
+  TEMPReportsAudioMCABreakdown.api = ['reports', 'temp', 'audio', 'mca']
+  TEMPReportsAudioMCABreakdown.crud = ['findById', 'findAll']
   
-  return ReportsAudioMCABreakdown
+  return TEMPReportsAudioMCABreakdown
 }
