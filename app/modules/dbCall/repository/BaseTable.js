@@ -152,7 +152,7 @@ module.exports = class BaseRepository {
 
           // custom date query (less than/equal, equal, OR greater than/equal)
           ...( before_date 
-            ? { record_date: { [Op.lt]: before_date } }
+            ? { record_date: { [Op.lte]: before_date } }
             : after_date 
             ? { record_date: { [Op.gte]: after_date } }
             : record_date

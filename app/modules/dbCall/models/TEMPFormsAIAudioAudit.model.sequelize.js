@@ -2,8 +2,8 @@
 const { Model, DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-  class TEMPormsAIAudioAudit extends Model {} 
-  TEMPormsAIAudioAudit.init({
+  class TEMPFormsAIAudioAudit extends Model {} 
+  TEMPFormsAIAudioAudit.init({
     ai_audit_transaction_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
@@ -53,7 +53,7 @@ module.exports = (sequelize) => {
   }, 
   {
     sequelize,
-    modelName: 'TEMPormsAIAudioAudit',
+    modelName: 'TEMPFormsAIAudioAudit',
     tableName: 'qa_forms_ai_audio_audit_temp',
     freezeTableName: true,
     timestamps: true,
@@ -61,8 +61,8 @@ module.exports = (sequelize) => {
     updatedAt: false
   })
   
-  TEMPormsAIAudioAudit.api = ['forms', 'temp', 'ai', 'audio', 'audit']
-  TEMPormsAIAudioAudit.crud = ['create', 'findById', 'findAll']
+  TEMPFormsAIAudioAudit.api = ['forms', 'temp', 'ai', 'audio', 'audit']
+  TEMPFormsAIAudioAudit.crud = ['create', 'findById', 'findAll']
   
-  return TEMPormsAIAudioAudit
+  return TEMPFormsAIAudioAudit
 }
