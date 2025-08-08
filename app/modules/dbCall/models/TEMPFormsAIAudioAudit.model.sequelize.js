@@ -18,10 +18,6 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER, 
       allowNull: false 
     },
-    // model_version: { 
-    //   type: DataTypes.STRING(5), 
-    //   allowNull: false 
-    // },
     audit_track:{
       type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: false
