@@ -85,6 +85,8 @@ deploy-np:
     GMAIL_REFRESH_TOKEN: $GMAIL_REFRESH_TOKEN
     VALUES_FILE: values/np.yaml
     KAAS_AGENT: mptdevops-nonprod-us-east-1-kaas-blue
+  environment: 
+    name: alpha
 
 deploy-prod:
   extends: .deploy
@@ -101,3 +103,5 @@ deploy-prod:
     GMAIL_REFRESH_TOKEN: $GMAIL_REFRESH_TOKEN
     VALUES_FILE: values/prod.yaml
     KAAS_AGENT: mptdevops-prod-us-east-1-kaas-blue
+  environment:
+    name: prod
