@@ -18,22 +18,23 @@ module.exports = (sequelize) => {
     },
     app_id: { 
       type: DataTypes.INTEGER, 
-      allowNull: false 
+      allowNull: true 
     },
     model_version: { 
-      type: DataTypes.STRING(5), 
-      allowNull: false 
-    },
-    qr_id: { 
       type: DataTypes.STRING(10), 
       allowNull: true 
     },
+    qr_id: { 
+      type: DataTypes.STRING(50), 
+      allowNull: true 
+    },
     ri_id: { 
-      type: DataTypes.STRING(10), 
+      type: DataTypes.STRING(50), 
       allowNull: false 
     },
     sample_id: { 
-      type: DataTypes.BIGINT 
+      type: DataTypes.BIGINT,
+      allowNull: true
     },
     record_date: { 
       type: DataTypes.DATEONLY, 
@@ -44,31 +45,32 @@ module.exports = (sequelize) => {
       allowNull: false 
     },
     ri_shift: { 
-      type: DataTypes.STRING(2), 
-      allowNull: false 
+      type: DataTypes.STRING(50), 
+      allowNull: true 
     },
     site_name_id: { 
-      type: DataTypes.STRING(10), 
+      type: DataTypes.STRING(50), 
       allowNull: true 
     },
     call_type_id: { 
-      type: DataTypes.STRING(5), 
+      type: DataTypes.STRING(50), 
       allowNull: true 
     },
     frame_code_id: { 
-      type: DataTypes.STRING(10), 
+      type: DataTypes.STRING(50), 
       allowNull: true 
     },
     call_direction: { 
-      type: DataTypes.STRING(10) 
+      type: DataTypes.STRING(50),
+      allowNull: true 
     },
     audio_smp: { 
-      type: DataTypes.STRING(10),
-      allowNull: false
+      type: DataTypes.STRING(50),
+      allowNull: true
     },
     department: { 
-      type: DataTypes.STRING(2), 
-      allowNull: false,
+      type: DataTypes.STRING(50), 
+      allowNull: true,
       defaultValue: "QR"
     },
     introduction: { 
@@ -178,11 +180,9 @@ module.exports = (sequelize) => {
     },
     other: { 
       type:DataTypes.JSONB, 
-      // defaultValue: 1 
     },
     coding_time: { 
       type:DataTypes.JSONB, 
-      // defaultValue: 1 
     },
     overcoming_objections: { 
       type:DataTypes.JSONB 
