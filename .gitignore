@@ -5,5 +5,5 @@
 /app/coverage
 /app/build
 webinfra-example-app-backend.iml
-.env
-test.env
+# .env
+# test.env
