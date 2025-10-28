@@ -6,7 +6,6 @@ stages:
 include:
   - project: 'nielsen-media/me/planning/infra/gitlab-ci-tools'
     file: '/gitlab-templates/ecr/template.yml'
-    # ref: ---
 
 .semantic-release:
   stage: release
