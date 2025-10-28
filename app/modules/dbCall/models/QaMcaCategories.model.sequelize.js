@@ -12,6 +12,10 @@ module.exports = (sequelize) => {
     mca_category: { 
       type: DataTypes.STRING(255), 
       allowNull: false 
+    },
+    mca_priority_level: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, 
   {
