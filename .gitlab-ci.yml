@@ -4,23 +4,19 @@ stages:
  - deploy
 
 include:
-  # - project: 'nielsen-media/me/planning/infra/gitlab-ci-tools'
-  #   file: 'gitlab-templates/semantic/template.yml'
-  #   ref: 4.10.1
   - project: 'nielsen-media/me/planning/infra/gitlab-ci-tools'
     file: '/gitlab-templates/ecr/template.yml'
-    ref: 4.10.1
+    ref: ---
 
 .semantic-release:
   stage: release
   variables:
-      GITLAB_TOKEN: $GITLAB_ONE_MEDIA_RECRUITMENT
+    GITLAB_TOKEN: $GITLAB_ONE_MEDIA_RECRUITMENT
 
 build:
   stage: build
   extends: .release-image
-  before_script:
-    - echo $GLRT_NPMRC_TOKEN
+  before_script: # replace NPM token param in .npmrc file
     - sed -i "s/{NPM_AUTH_TOKEN}/$GLRT_NPMRC_TOKEN/g" .npmrc
   after_script:
     - sed -i "s/$GLRT_NPMRC_TOKEN/{NPM_AUTH_TOKEN}/g" .npmrc
