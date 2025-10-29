@@ -24,7 +24,6 @@ build:
     - tags
   tags:
     - tqa-rec
-    - amd64
 
 #example how to unistall a helm release
 .cleanup-np:
