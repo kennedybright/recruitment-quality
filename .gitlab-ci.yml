@@ -6,6 +6,7 @@ stages:
 include:
   - project: 'nielsen-media/me/planning/infra/gitlab-ci-tools'
     file: '/gitlab-templates/ecr/template.yml'
+    ref: 4.4.0
 
 .semantic-release:
   stage: release
@@ -15,14 +16,15 @@ include:
 build:
   stage: build
   extends: .release-image
-  before_script: # replace NPM token param in .npmrc file
-    - sed -i "s/{NPM_AUTH_TOKEN}/$GLRT_NPMRC_TOKEN/g" .npmrc
-  after_script:
-    - sed -i "s/$GLRT_NPMRC_TOKEN/{NPM_AUTH_TOKEN}/g" .npmrc
+  # before_script: # replace NPM token param in .npmrc file
+  #   - sed -i "s/{NPM_AUTH_TOKEN}/$GLRT_NPMRC_TOKEN/g" .npmrc
+  # after_script:
+  #   - sed -i "s/$GLRT_NPMRC_TOKEN/{NPM_AUTH_TOKEN}/g" .npmrc
   only:
     - tags
   tags:
     - tqa-rec
+    - amd64
 
 #example how to unistall a helm release
 .cleanup-np:
