@@ -1,5 +1,5 @@
-# FROM public.ecr.aws/docker/library/node:20.18
-FROM 307422823171.dkr.ecr.eu-west-1.amazonaws.com/alpine:3.15
+FROM public.ecr.aws/docker/library/node:20.18
+# FROM 307422823171.dkr.ecr.eu-west-1.amazonaws.com/alpine:3.15
 
 COPY ./app /app
 COPY .npmrc /app/.npmrc
