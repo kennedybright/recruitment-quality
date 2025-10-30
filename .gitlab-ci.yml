@@ -16,10 +16,10 @@ include:
 build:
   stage: build
   extends: .release-image
-  # before_script: # replace NPM token param in .npmrc file
-  #   - sed -i "s/{NPM_AUTH_TOKEN}/$GLRT_NPMRC_TOKEN/g" .npmrc
-  # after_script:
-  #   - sed -i "s/$GLRT_NPMRC_TOKEN/{NPM_AUTH_TOKEN}/g" .npmrc
+  before_script: # replace NPM token param in .npmrc file
+    - sed -i "s/{NPM_AUTH_TOKEN}/$GLRT_NPMRC_TOKEN/g" .npmrc
+  after_script:
+    - sed -i "s/$GLRT_NPMRC_TOKEN/{NPM_AUTH_TOKEN}/g" .npmrc
   only:
     - tags
   tags:
