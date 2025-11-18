@@ -49,8 +49,8 @@ try {
       }
     })
     
-    Logger.debug('Sequelize models: ', orm.pgInstance.models)//console.log('Sequelize models: ', orm.pgInstance.models)
-    Logger.debug('Connection details: ', orm.pgInstance.options)//console.log('Connection details: ', orm.pgInstance.options)
+    Logger.debug('Sequelize models: ', orm.pgInstance.models)
+    Logger.debug('Connection details: ', orm.pgInstance.options)
   }
 } catch (e) {
   Logger.error(e.message)
@@ -61,3 +61,4 @@ try {
  * @exports the main application's Sequelize instance and models
  */
 module.exports = orm
+
