@@ -27,73 +27,32 @@ models.forEach(({ name, controller, api, methods }) => {
         const createDbMap = new Map()
         createDbMap.set('default', controller.createRecord)
         router.post(dynamicURL, versionRouter.route(createDbMap))
-
-        // restActions.push({
-        //     routePath: `${dynamicURL}$`,
-        //     displayPath: dynamicURL,
-        //     method: 'POST',
-        //     description: `Post ${context} values`
-        // })
     }
 
     if (methods.includes('update')) {
         const updateDbMap = new Map()
         updateDbMap.set('default', controller.updateRecord)
         router.put(dynamicURL, versionRouter.route(updateDbMap))
-
-        // restActions.push({
-        //     routePath: `${dynamicURL}/[0-9]+`,
-        //     displayPath: `${dynamicURL}/:id`,
-        //     method: 'PUT',
-        //     description: `Put ${context} value by ${byId}`
-        // })
     }
 
     if (methods.includes('delete')) {
         const deleteDbMap = new Map()
         deleteDbMap.set('default', controller.deleteRecord)
         router.delete(dynamicURL, versionRouter.route(deleteDbMap))
-
-        // restActions.push({
-        //     routePath: `${dynamicURL}/[0-9]+`,
-        //     displayPath: `${dynamicURL}/:id`,
-        //     method: 'DELETE',
-        //     description: `Delete ${context} value by ${byId}`
-        // })
     }
 
     if (methods.includes('findById')) {
         const getDbMap = new Map()
         getDbMap.set('default', controller.getRecordById)
         router.get(`${dynamicURL}/:id`, versionRouter.route(getDbMap))
-
-        // restActions.push({
-        //     routePath: `${dynamicURL}/[0-9]+`,
-        //     displayPath: `${dynamicURL}/:id`,
-        //     method: 'GET',
-        //     description: `Get ${context} value by ${byId}`
-        // })
     }
 
     if (methods.includes('findAll')) {
         const getAllDbMap = new Map()
         getAllDbMap.set('default', controller.getAllRecords)
         router.get(dynamicURL, versionRouter.route(getAllDbMap))
-
-        // restActions.push({
-        //     routePath: `${dynamicURL}$`,
-        //     displayPath: dynamicURL,
-        //     method: 'GET',
-        //     description: `Get all ${context} values`
-        // })
     }
-
-    // Update manifest file and add new rest actions
-    // if (name !== 'TestTable') {
-    //     restActions.forEach(({ routePath, displayPath, method, description }) =>
-    //         loadRoute(routePath, displayPath, method, description)
-    //     )
-    // }
 })
 
 module.exports = router
+
