@@ -18,16 +18,6 @@ module.exports = class DBCallController {
   createRecord = async(req, res) => {
     try {
       const data = req.body
-      // if (!Array.isArray(data)) {
-      //   // single create
-      //   const result = await this.repo.create(data)
-      //   res.status(HttpStatus.OK).json(result)
-      // } else {
-      //   // bulk create
-      //   const result = await this.repo.bulkCreate(data)
-      //   res.status(HttpStatus.OK).json(result)
-      // }
-
       const result = await this.sequelize.transaction(async () => {
         if (!Array.isArray(data)) {
           await this.repo.create(data) // single create
@@ -101,3 +91,4 @@ module.exports = class DBCallController {
     }
   }
 }  
+

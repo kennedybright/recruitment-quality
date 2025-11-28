@@ -54,7 +54,5 @@ router.post('/emailErrorReport', async (req, res) => {
   }
 })
 
-// loadRoute('/emailReport$', '/emailReport', 'POST', 'Trigger daily monitoring report email')
-// loadRoute('/emailErrorReport$', '/emailErrorReport', 'POST', 'Trigger system error report email')
-
 module.exports = router
+
